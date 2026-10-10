@@ -1,0 +1,17 @@
+# Nothing generated belongs here: `site/` is finished HTML, CSS and SVG, and the
+# deploy job uploads the directory as it stands. This list is short because there
+# is almost nothing to keep out — it is here so that the one or two things that
+# could be, are.
+.DS_Store
+Thumbs.db
+
+# Editor and tooling leftovers
+.vscode/
+.idea/
+*.swp
+
+# If a local preview tool ever writes into the tree, or somebody scripts a check
+# with npm, this keeps it out of the repository.
+node_modules/
+build/
+dist/

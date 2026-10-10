@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Weatherglass — roadmap</title>
+<meta name="description" content="What Weatherglass does today, what is next, and what is deliberately out of scope — with the four constraints every item is judged against.">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Weatherglass — roadmap">
+<meta property="og:description" content="What exists, what is next, and what is deliberately out of scope.">
+<meta property="og:image" content="img/social-card.svg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <img src="img/logo.svg" alt="" width="28" height="28">
+      <span>Weatherglass</span>
+    </a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Menu</span>
+      <span class="nav-bars" aria-hidden="true"></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#tour">Tour</a>
+      <a href="index.html#sensors">Sensors</a>
+      <a href="index.html#alerts">Alerts</a>
+      <a href="index.html#install">Install</a>
+      <a href="index.html#about">About</a>
+      <a href="roadmap.html" aria-current="page">Roadmap</a>
+      <a href="demo.html">Live demo</a>
+      <a class="nav-ext" href="https://j000k3r.github.io/weatherglass-docs/">Docs</a>
+      <a class="nav-ext" href="https://github.com/j000k3r/weatherglass">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="roadmap">
+
+<!-- ----------------------------------------------------------------- intro -->
+<section class="section">
+  <div class="wrap narrow">
+    <p class="eyebrow">Roadmap</p>
+    <h1>What is built, what is next, and what is not</h1>
+    <p class="section-lede">
+      Weatherglass is a small product on purpose, so this page is short on
+      purpose. Dates are not promises; the order below is what the design
+      already supports cheaply. The
+      <a href="https://j000k3r.github.io/weatherglass-docs/development/roadmap">documentation's
+      roadmap</a> is the source of truth, and it mirrors the
+      <a href="https://github.com/j000k3r/weatherglass/blob/main/docs/ROADMAP.md">one
+      in the repository</a>.
+    </p>
+    <p class="note">
+      Nothing here is a subscription feature. Everything already shipped is in
+      the container you pull, under the MIT licence, with no tier above it.
+    </p>
+  </div>
+</section>
+
+<!-- -------------------------------------------------------------------- now -->
+<section class="roadmap-now">
+  <div class="wrap narrow">
+    <p class="eyebrow">Now</p>
+    <p class="roadmap-now-text">
+      0.1.0 is finished and on Docker Hub — that is what a container pull gives
+      you today. The work in flight is the batch for the next tag: accounts with
+      roles, per-account two-factor authentication and settings, the simple and
+      the advanced interface, the guided tour, TLS certificate, Docker container
+      and SNMP sensors, example data you can take back out and load again, and
+      <code>weatherglass doctor</code> — and, on top of those, a search box that
+      reaches everything the installation holds, a dashboard that moves as each
+      probe lands, a Backup and restore panel, an incident filter, and a
+      step-by-step guide inside every alert channel form. It is a batch, not a
+      date: it ships when it is tested, in the one container there has always
+      been.
+    </p>
+  </div>
+</section>
+
+<div class="roadmap-timeline">
+
+<!-- ------------------------------------------------------------------ done -->
+<section class="section section-alt">
+  <div class="wrap narrow">
+    <div class="roadmap-row">
+      <span class="roadmap-node roadmap-node--done" aria-hidden="true"></span>
+      <div class="roadmap-head">
+        <h2>Built and released</h2>
+        <span class="roadmap-chip roadmap-chip--done">0.1.0</span>
+      </div>
+      <ul class="roadmap-list">
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span>HTTP, TCP (with TLS and a send/expect exchange), ICMP ping and DNS
+          sensors, each validated before it is saved.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>A dashboard with five views</strong> — cards, a list, a tree
+          by site, a wall of heartbeat tiles and a map — live status over SSE,
+          response-time charts, uptime bars, sparklines, an incident timeline,
+          grouping and tags.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span>Three tiers of history: raw for 7 days, hourly for 90 days, daily
+          forever, with exactly one resolution answering any range.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span>An incident lifecycle with retries before an incident opens,
+          reminders while it stays open, recovery alerts, and per-incident
+          acknowledgement.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span>Six alert channels: Telegram, Discord, Matrix, ntfy, Slack, and
+          signed generic webhooks, with custom message templates.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+          <span>First-run setup, bcrypt passwords, an API key, and sensors and
+          channels declared in YAML and re-applied on every start.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span>A multi-arch container image and seven static binary targets, with
+          a test suite across the store, the configuration, the probe engines and
+          the API.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ----------------------------------------------------- done, unreleased -->
+<section class="section">
+  <div class="wrap narrow">
+    <div class="roadmap-row">
+      <span class="roadmap-node roadmap-node--next" aria-hidden="true"></span>
+      <div class="roadmap-head">
+        <h2>Built, in the next release</h2>
+        <span class="roadmap-chip roadmap-chip--next">next release</span>
+      </div>
+      <p class="section-lede">
+        Everything here is built and waiting for the next tag. Already merged
+        into the same batch: a top-bar search that reaches sensors, sites,
+        channels, incidents, probe messages and settings; live updates that
+        patch a single card instead of redrawing the dashboard; a Backup and
+        restore panel that writes settings and sensors — and, if you ask, their
+        history — to one JSON file and reads it back; a step-by-step guide inside
+        every alert channel form; and filters on the incident list by status,
+        sensor, period and text.
+      </p>
+      <ul class="roadmap-list">
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+          <span><strong>Accounts with roles.</strong> Setup creates the first
+          administrator; everyone else is an operator or a viewer.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+          <span><strong>Two-factor authentication</strong> per account, with a
+          server-drawn QR code and eight one-time recovery codes shown exactly
+          once.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>Settings per account, split into five tabs.</strong>
+          Theme, accent, density, layout, language and interface mode follow the
+          person rather than the installation, and the page shows the one
+          category you chose rather than all of them in a column.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>A header you build out of widgets.</strong> The strip at
+          the top of the dashboard — status ring, uptime, latency, probes, how
+          long it has been monitoring — can be rearranged, added to and emptied:
+          a clock, the recent incidents, the slowest sensors, a small map, a row
+          of shortcuts.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>A simple and an advanced interface</strong>, chosen at
+          setup. Simple hides areas and folds fields; it never disables
+          anything.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>A guided tour</strong> of the dashboard, driven by a data
+          list of steps, that says out loud which data on screen is
+          invented.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+          <span><strong>TLS certificate sensors</strong>, reporting the days left
+          and separating a name that does not match, a certificate that has
+          expired, and a chain this host does not trust.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span><strong>Docker container sensors</strong> — one read-only call to
+          the Engine API for one container: running, health, restart
+          count.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>SNMP sensors</strong> — one <code>GET</code> of one OID
+          over v2c, checked against a substring or a numeric range.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span><strong>Example data you can take back out and load again</strong>,
+          marked as sample data on every card it appears on.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span><strong><code>weatherglass doctor</code></strong> — one command
+          that says what is wrong with an installation and changes
+          nothing.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------ next -->
+<section class="section section-alt">
+  <div class="wrap narrow">
+    <div class="roadmap-row">
+      <span class="roadmap-node roadmap-node--later" aria-hidden="true"></span>
+      <div class="roadmap-head">
+        <h2>Next</h2>
+        <span class="roadmap-chip roadmap-chip--later">0.2.x</span>
+      </div>
+      <p class="section-lede">
+        Ordered by value per unit of work.
+      </p>
+      <ul class="roadmap-list">
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>More languages.</strong> The UI is built on a message
+          catalogue; the next dictionaries, starting with German, are a
+          translation file and a picker entry.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>More sensor types.</strong> An SSH banner, an SMTP/IMAP
+          greeting, a UDP port, an ICMP TTL/hop sensor, and an HTTP sensor that
+          follows a redirect chain and reports what it found.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span><strong>Maintenance windows.</strong> Silence a sensor or a group
+          for a defined period, so expected downtime opens no incident and does
+          not count against the uptime figure.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>Dependencies between sensors.</strong> Mark the router as
+          a parent of everything behind it, so one power cut is one incident
+          instead of thirty.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>Dashboard polish.</strong> Pin a sensor to the top,
+          per-group colours, a side-by-side comparison, and drag-to-arrange
+          groups.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>Escalation.</strong> A second channel that only fires
+          when an incident is still open after N minutes.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span><strong>Import and export.</strong> A JSON round-trip of sensors
+          and channels, so a configuration can be versioned or moved — the
+          export half already ships as the Backup and restore panel; what is
+          left is a documented file format and a dry run before an import is
+          applied.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ----------------------------------------------------------------- later -->
+<section class="section">
+  <div class="wrap narrow">
+    <div class="roadmap-row">
+      <span class="roadmap-node roadmap-node--later" aria-hidden="true"></span>
+      <div class="roadmap-head">
+        <h2>Later</h2>
+        <span class="roadmap-chip roadmap-chip--later">0.3.x and beyond</span>
+      </div>
+      <ul class="roadmap-list">
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span><strong>A <code>/metrics</code> endpoint</strong>, so a homelab
+          that already runs a monitoring stack can scrape Weatherglass instead of
+          duplicating the checks it already makes.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>A public status page</strong> on its own path and its own
+          token, safe to share outside the LAN.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span><strong>SLA reports</strong> built from the daily rollups that
+          are already kept forever.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+          <span><strong>A certificate inventory</strong> — every certificate any
+          HTTPS or TLS sensor has seen, sorted by expiry.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>Remote probes</strong> — a second instance reporting into
+          the first, for watching the homelab from outside.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>A notification digest</strong> instead of only
+          event-driven alerts.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+          <span><strong>OIDC login</strong> for homelabs that already run an
+          identity provider.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span><strong>An optional Postgres backend</strong> for instances that
+          outgrow one SQLite file.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------ out of scope -->
+<section class="section section-alt">
+  <div class="wrap narrow">
+    <div class="roadmap-row">
+      <span class="roadmap-node roadmap-node--out" aria-hidden="true"></span>
+      <div class="roadmap-head">
+        <h2>Deliberately out of scope</h2>
+        <span class="roadmap-chip roadmap-chip--out">out of scope</span>
+      </div>
+      <p class="section-lede">
+        Saying no is most of what keeps this small enough to run on the thing it
+        watches.
+      </p>
+      <ul class="roadmap-list">
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>Agents and infrastructure discovery.</strong> Weatherglass
+          watches what you tell it to watch; it is not a service-discovery or
+          inventory tool.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span><strong>Windows and macOS service installation.</strong> The
+          binary builds for both, but the packaging target is a Linux
+          container.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+          <span><strong>A full SNMP poller.</strong> Single OIDs over v2c are in,
+          because that is what a switch, a router or a NAS is asked for. A MIB
+          walk, trap receivers and v3 are not.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+          <span><strong>Multi-tenancy.</strong> One instance, one homelab. Several
+          people can have accounts with different roles, but they all see the
+          same sensors — Weatherglass assumes one group of people who trust each
+          other with the dashboard. Running two containers is the answer to
+          wanting two.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span><strong>Plugins loaded at runtime.</strong> The sensor and channel
+          interfaces are the extension point, and they live in the binary where
+          they can be tested.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- -------------------------------------------------------------- suggested -->
+<section class="section roadmap-suggested">
+  <div class="wrap narrow">
+    <div class="roadmap-row">
+      <div class="roadmap-body">
+        <div class="roadmap-head">
+          <h2>Suggested</h2>
+          <span class="roadmap-chip roadmap-chip--proposal">proposals</span>
+        </div>
+        <p class="section-lede">
+          These are proposals, not promises — nothing here is scheduled, and
+          some of it may never happen.
+        </p>
+        <ul class="roadmap-list">
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+            <span><strong>A button in the notification itself.</strong> Telegram
+            and Slack can carry a confirmation; asking from a phone beats
+            signing into a dashboard.</span>
+          </li>
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+            <span><strong>A migration helper.</strong> Somebody moving here with
+            twenty sensors elsewhere would otherwise retype them by hand.</span>
+          </li>
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+            <span><strong>Pause a whole group at once.</strong> Today it is one
+            sensor at a time, which is the wrong order of operations during a
+            weekend rebuild.</span>
+          </li>
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+            <span><strong>A weekly digest as well as event alerts.</strong>
+            "Nothing else happened" is the message a quiet system has to be able
+            to send before anybody trusts it.</span>
+          </li>
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+            <span><strong>Write the configuration file back out.</strong> The
+            reverse direction of a backup: the dashboard emits the YAML it
+            otherwise reads, so the version-controlled part of a setup stops
+            being hand-maintained.</span>
+          </li>
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
+            <span><strong>A Gotify channel.</strong> The usual self-hosted path
+            in a homelab, and a small channel following the existing
+            pattern.</span>
+          </li>
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+            <span><strong>A settling time against flapping.</strong> A sensor
+            oscillating between two states produces a chain of incidents today;
+            a short hold-down would make it one.</span>
+          </li>
+          <li>
+            <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.9 3.3 3.7v4c0 2.9 1.9 5 4.7 6.3 2.8-1.3 4.7-3.4 4.7-6.3v-4Z"/><path d="M6.05 8.1 7.5 9.5l2.55-2.7"/></svg>
+            <span><strong>Who changed what.</strong> The moment more than one
+            account works on an installation, the question is
+            foreseeable.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ----------------------------------------------------------- constraints -->
+<section class="section section-alt">
+  <div class="wrap narrow">
+    <div class="roadmap-row">
+      <div class="roadmap-head">
+        <h2>The rules every item is judged against</h2>
+      </div>
+      <p class="section-lede">
+        These are why the project exists, and they are the reason items on this
+        page are ordered the way they are.
+      </p>
+      <ul class="roadmap-list">
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
+          <span><strong>One container, no sidecars.</strong> A feature that needs
+          a second process to run is not this feature. A small pure-Go library is
+          a different thing: it ships inside the one binary and costs nothing at
+          run time.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span><strong>One SQLite file.</strong> A backup stays a file
+          copy.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
+          <span><strong>No frontend build step.</strong> A change to a
+          <code>.js</code> file is a reload.</span>
+        </li>
+        <li>
+          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
+          <span><strong>The numbers must be right.</strong> Uptime percentages,
+          gaps and incident durations are the product. Anything that risks
+          double-counting a probe or hiding a gap loses to anything that does
+          not.</span>
+        </li>
+      </ul>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="index.html#install">Install it</a>
+        <a class="btn" href="https://j000k3r.github.io/weatherglass-docs/development/roadmap">Read the living roadmap</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.roadmap-timeline -->
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand">
+        <img src="img/logo.svg" alt="" width="24" height="24">
+        <span>Weatherglass</span>
+      </div>
+      <p class="muted">
+        A small, self-hosted watchdog for your homelab.
+        MIT licensed. A hobby project — no warranty, no liability,
+        <a href="index.html#about">vibe coded</a>.
+      </p>
+    </div>
+
+    <div>
+      <h4>Project</h4>
+      <ul>
+        <li><a href="https://github.com/j000k3r/weatherglass">Source</a></li>
+        <li><a href="https://hub.docker.com/r/j000k3r/weatherglass">Docker Hub</a></li>
+        <li><a href="https://github.com/j000k3r/weatherglass/issues">Issues</a></li>
+        <li><a href="https://github.com/j000k3r/weatherglass/blob/main/LICENSE">License</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Documentation</h4>
+      <ul>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/getting-started/install">Installation</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/concepts/sensors">Sensors</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/concepts/alerts">Alerts</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/reference/api">HTTP API</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <p class="muted">Built with plain HTML and CSS. No framework, no build step, no tracking.</p>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

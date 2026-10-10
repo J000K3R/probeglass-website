@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Weatherglass — a small, self-hosted watchdog for your homelab</title>
+<meta name="description" content="Weatherglass monitors your servers, services and network from a single 14 MB binary. HTTP, TCP, TLS certificate, ping, DNS, Docker and SNMP sensors, six alert channels, and a year of history in one SQLite file.">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Weatherglass — a small, self-hosted watchdog">
+<meta property="og:description" content="HTTP, TCP, TLS certificate, ping, DNS, Docker and SNMP sensors. Six alert channels. A year of history in one SQLite file. One container.">
+<meta property="og:image" content="img/social-card.svg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="index.html">
+      <img src="img/logo.svg" alt="" width="28" height="28">
+      <span>Weatherglass</span>
+    </a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav">
+      <span class="sr-only">Menu</span>
+      <span class="nav-bars" aria-hidden="true"></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="#features">Features</a>
+      <a href="#tour">Tour</a>
+      <a href="#sensors">Sensors</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#install">Install</a>
+      <a href="#about">About</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="demo.html">Live demo</a>
+      <a class="nav-ext" href="https://j000k3r.github.io/weatherglass-docs/">Docs</a>
+      <a class="nav-ext" href="https://github.com/j000k3r/weatherglass">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ------------------------------------------------------------------ hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Self-hosted · Single binary · SQLite</p>
+      <h1>Know when something<br>in your homelab breaks.</h1>
+      <p class="lede">
+        Weatherglass watches your servers, services and network, and tells you
+        the moment one of them stops answering. It is one container, one
+        database file, and about three megabytes of memory — smaller than the
+        thing it is watching.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#install">Get started</a>
+        <a class="btn" href="demo.html">Try it in the browser</a>
+        <a class="btn" href="#tour">Take the tour</a>
+      </div>
+
+      <ul class="badges">
+        <li>~14 MB binary</li>
+        <li>~3 MB RAM idle</li>
+        <li>amd64 · arm64 · armv7</li>
+        <li>MIT licensed</li>
+      </ul>
+    </div>
+
+    <figure class="hero-shot">
+      <img src="img/dashboard.svg" width="720" height="450"
+           alt="Illustration of the Weatherglass dashboard: a top bar with the section tabs, the layout switcher and the account chip, then a status summary, then groups of sensor cards each showing a name, a target, a response time and a sparkline.">
+      <figcaption>The dashboard. Illustration, not a screenshot.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------------------- glance -->
+<section class="strip">
+  <div class="wrap strip-grid">
+    <div><strong>7</strong><span>sensor types</span></div>
+    <div><strong>6</strong><span>alert channels</span></div>
+    <div><strong>7 d / 90 d / ∞</strong><span>history tiers</span></div>
+    <div><strong>1</strong><span>file to back up</span></div>
+  </div>
+</section>
+
+<!-- -------------------------------------------------------------- features -->
+<section id="features" class="section">
+  <div class="wrap">
+    <h2>What it does</h2>
+    <p class="section-lede">
+      The parts of a monitoring setup you actually use, without the parts you
+      have to operate.
+    </p>
+
+    <div class="cards">
+      <article class="card">
+        <h3>Seven kinds of sensor</h3>
+        <p>
+          HTTP and HTTPS with a status range, a body match and a size cap. TCP
+          with optional TLS and a send/expect exchange. TLS certificates and
+          their expiry. ICMP ping. DNS lookups against the resolver you name.
+          Docker containers, health and restart counts. Single-OID SNMP from a
+          switch or a router. Configured in the web UI, or declared in a YAML
+          file.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Alerts that reach you</h3>
+        <p>
+          Telegram, Discord, Matrix, ntfy, Slack, and generic webhooks with an
+          HMAC signature. Retries before an outage is declared, a reminder while
+          it lasts, and a recovery message that names the real downtime.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>History that stays</h3>
+        <p>
+          Raw samples for seven days, hourly rollups for ninety, daily rollups
+          forever. Uptime percentages stay correct at every zoom level, because
+          exactly one resolution answers any given range — no sample is ever
+          counted twice.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>A dashboard you can arrange</h3>
+        <p>
+          Dark, light or follow the system. Six accent colours, two densities,
+          and five ways to look at the same sensors — cards, a list, a tree
+          folded by site and then by group, a wall of tiles with a heartbeat,
+          or a map of where everything physically sits. Preferences follow the
+          account. It updates over Server-Sent Events, so a probe landing
+          changes the view without a reload and without polling.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Scriptable, not locked down</h3>
+        <p>
+          Every request the browser makes, curl can make. An API key for
+          scripts and Home Assistant, or a session cookie for people. Live
+          events stream over SSE for anything that wants to subscribe.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Config as code</h3>
+        <p>
+          Sensors and channels can live in a YAML file next to the database.
+          A rebuild from zero takes seconds, and a file that declares a channel
+          which does not exist is a startup error rather than a silent
+          misconfiguration.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------ tour -->
+<section id="tour" class="section section-alt">
+  <div class="wrap">
+    <h2>The tour</h2>
+    <p class="section-lede">
+      What the three screens you will spend your time on look like.
+      These are illustrations drawn from the real interface, not screenshots.
+    </p>
+
+    <div class="tour">
+      <figure class="tour-item">
+        <img src="img/dashboard.svg" width="720" height="450"
+             alt="The dashboard: a top bar with the layout switcher and the account chip, a summary strip of counts, then sensor cards in groups, each with a status dot, a response time and a latency sparkline.">
+        <figcaption>
+          <h3>Dashboard</h3>
+          <p>
+            Every sensor as a card, grouped the way you grouped them, each with
+            its current state, response time and a sparkline of the last few
+            probes. Anything failing sorts to the top of its group. Four more
+            views sit behind the switcher in the top bar: a list, a tree folded
+            by site and then by group, a wall of tiles with a heartbeat, and a
+            map of where the places physically are.
+          </p>
+        </figcaption>
+      </figure>
+
+      <figure class="tour-item">
+        <img src="img/detail.svg" width="720" height="450"
+             alt="A sensor detail view: a response-time chart over 24 hours, an uptime bar for the last thirty days, and a list of recent results.">
+        <figcaption>
+          <h3>One sensor, in detail</h3>
+          <p>
+            A response-time chart across 1 hour to a year, an uptime bar for
+            the same window, latency percentiles, and the list of recent
+            results — including what the server said when it said no.
+          </p>
+        </figcaption>
+      </figure>
+
+      <figure class="tour-item">
+        <img src="img/alerts.svg" width="720" height="450"
+             alt="An alert message in a chat app: a sensor named NAS went down, the error that was returned, the time it started, and a link back to the dashboard.">
+        <figcaption>
+          <h3>The alert</h3>
+          <p>
+            Short enough to read on a lock screen: what broke, what it
+            answered, since when, and a link straight to the sensor. The
+            recovery message names how long it was actually down.
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="tour-demo">
+      <p>
+        These are drawings. If you would rather click the real thing, the whole
+        dashboard runs in your browser on invented data — open a sensor, follow
+        a chart across a week, acknowledge an incident.
+      </p>
+      <a class="btn btn-primary" href="demo.html">Open the live demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------------------- sensors -->
+<section id="sensors" class="section">
+  <div class="wrap">
+    <h2>Sensor types</h2>
+    <p class="section-lede">
+      Each one has its own options; these are the shapes, not the whole set.
+      The full list is in the <a href="https://j000k3r.github.io/weatherglass-docs/concepts/sensors">documentation</a>.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Target</th><th>What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>http</code></td>
+            <td><code>https://nas.lan:5001/health</code></td>
+            <td>Requests the URL and checks the status against an expected range (<code>200-399</code> by default, also accepts <code>2xx</code> and comma-separated lists), optionally matches the body and caps how much of it is read.</td>
+          </tr>
+          <tr>
+            <td><code>tcp</code></td>
+            <td><code>nas.lan:445</code></td>
+            <td>Opens a connection and closes it, optionally over TLS. Can send a line and wait for a reply, for protocols older than health endpoints.</td>
+          </tr>
+          <tr>
+            <td><code>tls</code></td>
+            <td><code>nas.lan</code></td>
+            <td>Connects for the certificate alone and reports the days left. Separates a name that does not match, a certificate that has expired, and a chain this host does not trust — three failures that usually arrive as one.</td>
+          </tr>
+          <tr>
+            <td><code>ping</code></td>
+            <td><code>192.168.1.1</code></td>
+            <td>Sends ICMP echo requests and reports the round trip. Tries an unprivileged datagram socket first, so it usually needs no extra capability.</td>
+          </tr>
+          <tr>
+            <td><code>dns</code></td>
+            <td><code>nas.lan</code> via <code>192.168.1.53</code></td>
+            <td>Resolves a name against a specific resolver, optionally expecting particular records. Catches the failure where everything is up but nothing can be found.</td>
+          </tr>
+          <tr>
+            <td><code>docker</code></td>
+            <td><code>homeassistant</code></td>
+            <td>One read-only call to the Docker Engine API for one container: is it running, what did its <code>HEALTHCHECK</code> say, how often has it restarted. It never starts, stops or changes anything.</td>
+          </tr>
+          <tr>
+            <td><code>snmp</code></td>
+            <td><code>192.168.1.2</code></td>
+            <td>One <code>GET</code> of one OID over v2c, checked against a substring or a numeric range. Enough for a switch, a router or a NAS — deliberately not a walk, not traps and not v3.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------------------- alerts -->
+<section id="alerts" class="section section-alt">
+  <div class="wrap">
+    <h2>Alert channels</h2>
+    <p class="section-lede">
+      Pick per sensor. One noisy service can shout at Telegram while the rest
+      goes quietly to a webhook.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Channel</th><th>Minimum to configure</th><th>Also</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Telegram</td><td>Bot token, chat ID</td><td>Message template</td></tr>
+          <tr><td>Discord</td><td>Webhook URL</td><td>Message template</td></tr>
+          <tr><td>Matrix</td><td>Homeserver, access token, room ID</td><td>Message template</td></tr>
+          <tr><td>ntfy</td><td>Topic</td><td>Server, priority, access token</td></tr>
+          <tr><td>Slack</td><td>Incoming webhook URL</td><td>Message template</td></tr>
+          <tr><td>Webhook</td><td>URL</td><td>HMAC secret, custom headers</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">
+      Credentials are never returned by the API. Every secret field comes back
+      as a marker, and sending that marker back preserves the stored value —
+      so a token is never in a browser cache, a proxy log or a screenshot.
+    </p>
+  </div>
+</section>
+
+<!-- --------------------------------------------------------------- install -->
+<section id="install" class="section">
+  <div class="wrap">
+    <h2>Install</h2>
+    <p class="section-lede">
+      One container. Then open it and set a password.
+    </p>
+
+    <div class="install-grid">
+      <div class="install-main">
+        <h3>Docker</h3>
+        <div class="code">
+          <button class="copy" data-copy="#cmd-docker" aria-label="Copy command">Copy</button>
+<pre id="cmd-docker"><code>docker run -d \
+  --name weatherglass \
+  --restart unless-stopped \
+  -p 8080:8080 \
+  -v weatherglass-data:/data \
+  j000k3r/weatherglass:latest</code></pre>
+        </div>
+        <p>
+          Open <code>http://localhost:8080</code> and set a password in the
+          setup wizard. Add <code>--cap-add NET_RAW</code> only if you want to
+          use ICMP ping sensors; without it Weatherglass falls back to an
+          unprivileged ping and tells you in the result if that is not
+          available either.
+        </p>
+
+        <h3>Compose</h3>
+        <div class="code">
+          <button class="copy" data-copy="#cmd-compose" aria-label="Copy command">Copy</button>
+<pre id="cmd-compose"><code>git clone https://github.com/j000k3r/weatherglass.git
+cd weatherglass
+docker compose up -d</code></pre>
+        </div>
+
+        <h3>Look at it with data in it</h3>
+        <p>
+          An empty dashboard says very little about whether you want this. The
+          demo seed writes a set of sensors and a week of synthetic history, so
+          you can see the charts without waiting for a week to pass.
+        </p>
+        <div class="code">
+          <button class="copy" data-copy="#cmd-demo" aria-label="Copy command">Copy</button>
+<pre id="cmd-demo"><code>docker run --rm -v weatherglass-demo:/data \
+  j000k3r/weatherglass:latest seed --demo</code></pre>
+        </div>
+      </div>
+
+      <aside class="install-side">
+        <h3>Where things live</h3>
+        <dl class="facts">
+          <dt><code>/data/weatherglass.db</code></dt>
+          <dd>The whole database. Stop the container and copy it to back up.</dd>
+          <dt><code>/data/weatherglass.yaml</code></dt>
+          <dd>Optional. Sensors and channels can be declared here and are
+            reconciled on every start.</dd>
+          <dt>Port <code>8080</code></dt>
+          <dd>The dashboard and the API.</dd>
+          <dt><code>/healthz</code></dt>
+          <dd>Liveness, no authentication. It is what the image's own
+            <code>HEALTHCHECK</code> calls.</dd>
+        </dl>
+        <p class="muted">
+          The image is distroless and runs as a non-root user: no shell, no
+          package manager, nothing to log into.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- --------------------------------------------------------------- compare -->
+<section id="compare" class="section section-alt">
+  <div class="wrap">
+    <h2>How it compares</h2>
+    <p class="section-lede">
+      There are good monitoring tools already. This one exists for the case
+      where you want the monitoring to be smaller than the thing it monitors.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>Weatherglass</th><th>A typical container-based monitor</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Memory at idle</td><td>~3 MB</td><td>200–400 MB</td></tr>
+          <tr><td>Install</td><td>One container</td><td>Container plus a database container</td></tr>
+          <tr><td>Data</td><td>One SQLite file you can copy</td><td>A database server, or a volume of JSON</td></tr>
+          <tr><td>Frontend build</td><td>None — embedded in the binary</td><td>Usually a Node build step</td></tr>
+          <tr><td>Cross-compiles to</td><td>amd64, arm64, armv7, darwin, windows, freebsd</td><td>Usually amd64 only</td></tr>
+          <tr><td>Works with no internet</td><td>Yes, entirely</td><td>Often depends on a CDN for assets</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------- faq -->
+<section class="section">
+  <div class="wrap narrow">
+    <h2>Questions that come up</h2>
+
+    <details>
+      <summary>Does it need a database server?</summary>
+      <p>No. It uses SQLite through a pure-Go implementation, so the binary is
+      static and cross-compiles with <code>CGO_ENABLED=0</code>. The database is
+      one file.</p>
+    </details>
+
+    <details>
+      <summary>Why does a failed probe say “Unknown” and not “Down”?</summary>
+      <p>Because at that moment the honest answer is that we do not know yet.
+      With retries configured, one failed probe is a blip. It becomes Down when
+      the failure streak reaches the threshold — and that is when the incident
+      opens and the alert goes out.</p>
+    </details>
+
+    <details>
+      <summary>Can I keep history for longer than 90 days?</summary>
+      <p>Yes. Daily rollups are kept forever, so a range of a year or more is
+      already answerable. The retention settings decide how long the fine and
+      medium detail survives, not how far back you can look.</p>
+    </details>
+
+    <details>
+      <summary>Can I scrape it from another monitoring stack?</summary>
+      <p>Not directly — there is no <code>/metrics</code> endpoint yet. In the
+      meantime the JSON API is scrapeable with a small exporter, and the generic
+      webhook can push every event into whatever you already run.</p>
+    </details>
+
+    <details>
+      <summary>Multiple users?</summary>
+      <p>Yes, and they have roles. An administrator manages users, sensors and
+      settings; an operator can additionally acknowledge an outage, pause a
+      sensor, or run a probe by hand; a viewer reads everything and changes
+      nothing. Everyone picks their own theme, layout and language, and any
+      account can turn on a second factor.</p>
+    </details>
+
+    <details>
+      <summary>Can I use it as a public status page?</summary>
+      <p>Not yet. Today the dashboard is authenticated, full stop. A read-only
+      public view on its own path and token is on the roadmap.</p>
+    </details>
+
+    <details>
+      <summary>What happens to my data if I stop using it?</summary>
+      <p>Nothing — it is one file on your disk. There is no account, no
+      telemetry, and no phone-home. Weatherglass makes outbound connections only
+      to the targets you configure and the alert channels you set up.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------- about this -->
+<!-- This section is not decoration, and it is not in the small print at the
+     bottom. Three things about this project are easy to be surprised by later —
+     that it is a hobby, that it is written with an AI agent, and that nobody
+     stands behind it — and a visitor deciding whether to put it on a machine
+     they care about deserves to be surprised by none of them. The full version,
+     including how it came about, is a page in the documentation. -->
+<section id="about" class="section">
+  <div class="wrap">
+    <h2>Who makes this, and how</h2>
+    <p class="section-lede">
+      Weatherglass is not a product. It is one person's homelab watchdog, written
+      in their spare time, and that is worth knowing before you install it
+      anywhere that matters.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>A hobby project</h3>
+        <p>
+          One person, spare time, their own homelab — and not a professional
+          software developer. There is no company behind Weatherglass, no support
+          contract, no paid tier and no SLA. It is built for this one homelab and
+          shared in case somebody is looking for something similar. Issues are read
+          and patches are welcome — a timeline is not something anybody is
+          offering.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Vibe coded</h3>
+        <p>
+          The code is written in dialogue with an AI coding agent. Most of it is
+          written by the agent and then run, measured and argued with until it
+          behaves; some is written or reworked by hand. There has been no design
+          review and no security audit, so expect rough edges — and please report
+          them.
+        </p>
+      </div>
+      <div class="card">
+        <h3>No warranty, no liability</h3>
+        <p>
+          MIT licensed and provided “as is”. Nobody is liable for anything it
+          does — including data loss, and including a service that was down while
+          the dashboard said it was fine. <strong>Do not make it your only line of
+          defence.</strong>
+        </p>
+      </div>
+    </div>
+
+    <p class="note">
+      How it came about, how it is written today, and what that means for you:
+      <a href="https://j000k3r.github.io/weatherglass-docs/about">Who makes this, and
+      how</a> in the documentation. If that is not the trade you want to make for a
+      monitoring tool, that is a completely reasonable position — and the other
+      tools out there are not the worse for it. Weatherglass is simply what one
+      person wanted for one homelab.
+    </p>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------------------- cta -->
+<section class="cta-band">
+  <div class="wrap narrow">
+    <h2>Ready when your homelab is</h2>
+    <p>
+      Start the container, set a password, add a sensor. The first alert you
+      get will be one you would otherwise have found out about from your
+      partner.
+    </p>
+    <div class="cta-row center">
+      <a class="btn btn-primary" href="#install">Install it</a>
+      <a class="btn" href="https://j000k3r.github.io/weatherglass-docs/">Read the docs</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand">
+        <img src="img/logo.svg" alt="" width="24" height="24">
+        <span>Weatherglass</span>
+      </div>
+      <p class="muted">
+        A small, self-hosted watchdog for your homelab.
+        MIT licensed. A hobby project — no warranty, no liability,
+        <a href="#about">vibe coded</a>.
+      </p>
+    </div>
+
+    <div>
+      <h4>Project</h4>
+      <ul>
+        <li><a href="https://github.com/j000k3r/weatherglass">Source</a></li>
+        <li><a href="https://hub.docker.com/r/j000k3r/weatherglass">Docker Hub</a></li>
+        <li><a href="https://github.com/j000k3r/weatherglass/issues">Issues</a></li>
+        <li><a href="https://github.com/j000k3r/weatherglass/blob/main/LICENSE">License</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Documentation</h4>
+      <ul>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/getting-started/install">Installation</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/concepts/sensors">Sensors</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/concepts/alerts">Alerts</a></li>
+        <li><a href="https://j000k3r.github.io/weatherglass-docs/reference/api">HTTP API</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <p class="muted">Built with plain HTML and CSS. No framework, no build step, no tracking.</p>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>
