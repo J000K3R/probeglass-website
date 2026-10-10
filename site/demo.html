@@ -1,236 +1,40 @@
 <!doctype html>
-<html lang="en" data-theme="auto" data-accent="azure" data-density="comfortable" data-mode="advanced">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
-<title>Weatherglass — try it in the browser</title>
-<meta name="description" content="A clickable demo of the Weatherglass dashboard: sensors, response-time charts, incidents and acknowledgement, running entirely in the browser on invented data.">
+<title>Weatherglass — demo</title>
+<link rel="canonical" href="demo/">
+<meta http-equiv="refresh" content="0; url=demo/">
+<meta name="robots" content="noindex">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-
-<!-- The product's own stylesheet, then the demo chrome. Nothing here is a
-     mock-up: the cards, the charts, the dialog and the simple/advanced folding
-     are the same rules the container serves. -->
-<link rel="stylesheet" href="assets/app.css">
-<link rel="stylesheet" href="assets/demo.css">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="Weatherglass — try it in the browser">
-<meta property="og:description" content="The real dashboard, on invented data. Click a sensor, acknowledge an incident, switch to light mode.">
-<meta property="og:image" content="img/social-card.svg">
-<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: #f6f7f9; color: #1b1f24;
+  }
+  main { max-width: 34rem; padding: 2rem; text-align: center; }
+  h1 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  p { margin: 0 0 1rem; color: #4a5560; }
+  a { color: #1f6feb; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #101418; color: #e6e9ec; }
+    p { color: #9aa4ae; }
+    a { color: #6ea8fe; }
+  }
+</style>
 </head>
 <body>
-
-<a class="skip" href="#main">Skip to content</a>
-
-<div class="demo-head">
-  <div class="demo-bar">
-    <a class="demo-back" href="./">&larr; Weatherglass</a>
-    <span class="demo-flag">Demo</span>
-    <span class="demo-note">Invented data, live in your browser. A real installation shows your own sensors.</span>
-
-    <div class="demo-controls">
-      <div class="demo-group">
-        <span>Show</span>
-        <div class="range-picker" id="mode-picker">
-          <button type="button" class="chip" data-mode-pick="simple">Simple</button>
-          <button type="button" class="chip" data-mode-pick="advanced">Advanced</button>
-        </div>
-      </div>
-
-      <div class="demo-group">
-        <span>Theme</span>
-        <div class="range-picker" id="theme-picker">
-          <button type="button" class="chip" data-theme-pick="auto">Auto</button>
-          <button type="button" class="chip" data-theme-pick="light">Light</button>
-          <button type="button" class="chip" data-theme-pick="dark">Dark</button>
-        </div>
-      </div>
-
-      <div class="demo-group adv-hide">
-        <span>Accent</span>
-        <select id="accent-pick" aria-label="Accent colour">
-          <option value="azure">Azure</option>
-          <option value="violet">Violet</option>
-          <option value="emerald">Emerald</option>
-          <option value="amber">Amber</option>
-          <option value="rose">Rose</option>
-          <option value="slate">Slate</option>
-        </select>
-      </div>
-
-      <div class="demo-group adv-hide">
-        <span>Density</span>
-        <select id="density-pick" aria-label="Density">
-          <option value="comfortable">Comfortable</option>
-          <option value="compact">Compact</option>
-        </select>
-      </div>
-
-      <button type="button" class="btn btn-small" id="tour-start">Take the tour</button>
-    </div>
-  </div>
-
-  <header class="topbar">
-    <div class="topbar-side topbar-left">
-      <div class="brand">
-        <img src="img/logo.svg" alt="" width="24" height="24">
-        <span>Weatherglass</span>
-      </div>
-
-      <nav class="tabs" id="tabs" role="tablist">
-        <button class="tab active" role="tab" data-route="dashboard">Dashboard</button>
-        <button class="tab" role="tab" data-route="incidents">Incidents</button>
-      </nav>
-    </div>
-
-    <!-- The search box, in the middle of the bar where the product puts it: the
-         top bar is a three-column grid, so the field is centred in the bar rather
-         than in whatever space the tabs left over. In the product it searches
-         everything through the server; a static page has no server, so it does
-         what it can with what it holds — it narrows the cards on the dashboard
-         and the list on the incidents tab. -->
-    <div class="search">
-      <input id="search" type="search" placeholder="Search" aria-label="Search">
-    </div>
-
-    <div class="topbar-side topbar-actions">
-      <!-- Whether the event stream is up. The demo has no stream, so it shows the
-           state the product is in when one is connected and lets you press it,
-           because the point of the control is that it can be switched off. -->
-      <button class="live-chip" id="live-chip" type="button" data-live="on"
-              aria-pressed="true" aria-label="Live updates">
-        <i class="live-dot" aria-hidden="true"></i>
-        <span class="live-word">Live</span>
-      </button>
-
-      <!-- The layout switcher, in the same place the product puts it. It only
-           means anything on the dashboard, so the router shows it there and
-           hides it everywhere else. The demo offers the three views that need
-           nothing but the sensors it already has: the wall and the map want a
-           heartbeat run and a tile server, and a static page has neither. -->
-      <div class="segmented" id="layout-switcher" role="group"
-           aria-label="Dashboard layout" hidden></div>
-
-      <button class="btn btn-primary" id="new-sensor">New sensor</button>
-
-      <!-- Who is signed in, top right. The menu is built by demo.js on open,
-           exactly as the product's user.js builds it. -->
-      <div class="user-area">
-        <button class="user-chip" id="user-menu-toggle" type="button"
-                aria-haspopup="true" aria-expanded="false">
-          <span class="avatar" id="user-avatar" aria-hidden="true">J</span>
-          <span class="user-chip-name" id="user-chip-name">jane</span>
-        </button>
-      </div>
-    </div>
-  </header>
-</div>
-
-<main id="main">
-
-  <!-- dashboard -->
-  <section id="view-dashboard" class="view">
-    <div id="summary" class="summary"></div>
-    <div id="groups" class="groups"></div>
-    <div id="dashboard-empty" class="empty" hidden>
-      <h2>Nothing matches</h2>
-      <p class="muted">Clear the search box to see every sensor again.</p>
-    </div>
-  </section>
-
-  <!-- incidents -->
-  <section id="view-incidents" class="view" hidden>
-    <div class="view-head view-head-filters">
-      <h1>Incidents</h1>
-      <!-- Four controls that combine: state, place, period and a word you remember
-           from the message. The chips are filled in by demo.js, the way the product
-           fills them from a table in app.js. -->
-      <div class="filter-bar" id="incident-filters">
-        <div class="segmented" id="incident-status" role="group" aria-label="Status">
-          <button class="seg-btn" type="button" data-state="" aria-pressed="true">All</button>
-          <button class="seg-btn" type="button" data-state="open" aria-pressed="false">Open</button>
-          <button class="seg-btn" type="button" data-state="resolved" aria-pressed="false">Resolved</button>
-        </div>
-
-        <select id="incident-sensor" aria-label="Sensor"></select>
-
-        <div class="range-picker" id="incident-range" role="group" aria-label="Period"></div>
-
-        <input type="search" id="incident-query" placeholder="Cause, sensor or note"
-               aria-label="Search">
-
-        <button class="btn btn-ghost btn-small" id="incident-reset" hidden>Reset filter</button>
-      </div>
-    </div>
-    <div id="incident-list" class="table-wrap"></div>
-    <div id="incidents-empty" class="empty" hidden>
-      <h2>No incidents</h2>
-      <p class="muted" id="incidents-empty-body">Nothing has failed in this window.
-        Keep it that way.</p>
-      <!-- When the filter is what emptied the list, saying "nothing has failed"
-           would be a lie about the installation. This second line says where the
-           emptiness comes from instead. -->
-      <p class="muted" id="incidents-empty-filtered" hidden>The filter is hiding
-        everything. Try a wider period, another sensor, or reset it.</p>
-    </div>
-  </section>
-
+<main>
+  <h1>The demo has moved</h1>
+  <p>
+    It is now served from <a href="demo/">demo/</a>, and it is the real
+    dashboard: the same files the container serves, with example sensors behind
+    it. This page forwards you there.
+  </p>
+  <p><a href="demo/">Continue to the demo</a></p>
 </main>
-
-<footer class="footer">
-  <div class="wrap footer-grid">
-    <div>
-      <div class="brand">
-        <img src="img/logo.svg" alt="" width="24" height="24">
-        <span>Weatherglass</span>
-      </div>
-      <p class="muted">A small, self-hosted watchdog for your homelab. MIT licensed.
-      A hobby project — no warranty, no liability, written in dialogue with an AI
-      coding agent. <a href="index.html#about">What that means</a>.</p>
-    </div>
-    <div>
-      <h4>Keep going</h4>
-      <ul>
-        <li><a href="./">Back to the overview</a></li>
-        <li><a href="https://j000k3r.github.io/weatherglass-docs/">Documentation</a></li>
-        <li><a href="https://github.com/j000k3r/weatherglass">Source</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <p class="muted">This page is static HTML, CSS and JavaScript. No server, no tracking, nothing stored.</p>
-  </div>
-</footer>
-
-<!-- ----------------------------------------------------------- detail view -->
-<dialog id="detail" class="sheet">
-  <div class="sheet-head">
-    <h2 id="detail-title"></h2>
-    <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
-  </div>
-  <div class="sheet-actions" id="detail-actions"></div>
-  <div id="detail-body"></div>
-</dialog>
-
-<!-- ----------------------------------------------------------------- modal -->
-<dialog id="modal" class="sheet">
-  <form id="modal-form" method="dialog">
-    <div class="sheet-head">
-      <h2 id="modal-title"></h2>
-      <button class="icon-btn" type="button" data-close aria-label="Close">&times;</button>
-    </div>
-    <div id="modal-body" class="sheet-body"></div>
-    <div class="sheet-foot">
-      <button class="btn" type="button" data-close>Cancel</button>
-      <button class="btn btn-primary" type="submit" id="modal-save">Save</button>
-    </div>
-  </form>
-</dialog>
-
-<div id="toasts" class="toasts" aria-live="polite"></div>
-
-<script type="module" src="assets/demo.js"></script>
 </body>
 </html>

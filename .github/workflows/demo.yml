@@ -1,0 +1,53 @@
+# Fails when the published demo is no longer the dashboard the program serves.
+#
+# site/demo/ is not written by hand and cannot be kept in step by hand: it is the
+# dashboard's own files, plus the answers a recording of it asked a real
+# installation for. The moment internal/web/assets changes and nobody runs
+# `make demo`, this site starts serving yesterday's interface — a missing widget,
+# an old stylesheet, a call the recorded answers do not include — and nothing
+# else in the project would notice.
+#
+# So this job does what a reader of the demo would do: it checks out the program,
+# builds the demo out of it, and compares. The program repository is public, so
+# the default token can read it and no secret is involved.
+#
+# The comparison is the program's own script, ./scripts/check-demo.sh, which is
+# also what `make demo-check` runs. One implementation, two callers.
+
+name: Demo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  current:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the website
+        uses: actions/checkout@v4
+        with:
+          path: site-repo
+
+      - name: Check out the program
+        uses: actions/checkout@v4
+        with:
+          repository: j000k3r/weatherglass
+          path: program
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: program/go.mod
+
+      # The generator invents its week of history with a fixed seed and dials
+      # nothing, so this needs no network beyond the module download above and
+      # takes a couple of seconds.
+      - name: Regenerate the demo and compare
+        working-directory: program
+        run: ./scripts/check-demo.sh ../site-repo/site/demo

@@ -1,7 +1,9 @@
-# Nothing generated belongs here: `site/` is finished HTML, CSS and SVG, and the
-# deploy job uploads the directory as it stands. This list is short because there
-# is almost nothing to keep out — it is here so that the one or two things that
-# could be, are.
+# Almost nothing here is generated: `site/` is finished HTML, CSS and SVG, and the
+# deploy job uploads the directory as it stands. The exception is `site/demo/`,
+# which is generated and committed on purpose — it is the dashboard out of the
+# program's repository, and the point of committing it is that a reader gets the
+# real interface. It is written by `make demo` over there, so it is deliberately
+# not listed below.
 .DS_Store
 Thumbs.db
 

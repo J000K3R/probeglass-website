@@ -11,7 +11,7 @@ Three repositories make up the project, and they have three different jobs:
 
 | Repository | Holds | Published at |
 |---|---|---|
-| [`weatherglass`](https://github.com/j000k3r/weatherglass) | The program itself | Docker Hub |
+| [`weatherglass`](https://github.com/j000k3r/weatherglass) | The program itself | `ghcr.io/j000k3r/weatherglass` |
 | [`weatherglass-docs`](https://github.com/j000k3r/weatherglass-docs) | Reference documentation, built with Docusaurus | `/weatherglass-docs/` |
 | **`weatherglass-website`** (this one) | The landing page: what it is, what it does, how to install it | `/weatherglass-website/` |
 
@@ -43,16 +43,14 @@ completely and every command is still selectable by hand.
 site/
   index.html            the page
   roadmap.html          what is built, what is next, what is not
-  demo.html             the clickable demo
+  demo.html             a redirect to demo/, for links made before it existed
+  demo/                 the clickable demo — generated, see below
   assets/style.css      the whole stylesheet
   assets/site.js        menu toggle + copy buttons, ~60 lines
-  assets/app.css        copied from the product, see below
-  assets/charts.js      copied from the product, see below
-  assets/demo.css       the demo's own bar, footer and page frame
-  assets/demo.js        the demo: invented data over the real interface
   img/*.svg             illustrations, generated
 .github/workflows/
   deploy.yml            uploads site/ to GitHub Pages
+  demo.yml              fails when the demo is no longer the current dashboard
 ```
 
 ## The roadmap
@@ -70,20 +68,39 @@ when it changes, this page changes with it, by hand, like everything else here.
 
 ## The demo
 
-`site/demo.html` is the dashboard with invented data, running entirely in the
-browser: no server, no fetch, no storage. It is reached from the navigation and
-from the tour section.
+`site/demo/` is the dashboard itself, running in the browser on example data,
+reached from the navigation and from the tour section. It is not a lookalike and
+not a rebuild: `site/demo/assets/` is `internal/web/assets` out of the program,
+copied byte for byte, and `site/demo/index.html` is that dashboard's own page
+with its five absolute paths made relative. The map, the wall, the widgets, the
+search box, the guided tour and the language switch are all there because they
+are the same code.
 
-It is not a lookalike. `assets/app.css` and `assets/charts.js` are the product's
-own `internal/web/assets/style.css` and `charts.js`, copied **verbatim**, so the
-demo cannot drift into a second design that looks almost right. There is no
-build step here, so the copy is manual and has to be repeated after any change
-to either file in the product — the provenance header at the top of each copy
-says the same thing, where whoever edits the file will see it.
+Two generated files make it work with no server behind it. `fixtures.js` is every
+answer the interface asked for, recorded from the real handler. `shim.js`
+replaces `fetch` and `EventSource` so those answers are handed back, which is all
+the dashboard needs — it uses no other network API. Settings changed in the demo
+are applied in memory and are gone on reload, which is what the bar above the
+page promises, and nothing is written to `localStorage`.
 
-`assets/demo.css` and `assets/demo.js` hold only what is the demo's own: the bar
-that says the data is invented, the light/dark and simple/advanced switches, the
-page frame, and the synthetic history behind the charts.
+None of that directory is edited by hand. It is written by `cmd/demogen` in the
+program's repository, which is expected to sit beside this one:
+
+```bash
+cd ../weatherglass
+make demo          # regenerate site/demo/
+make demo-check    # is the published one still what this tree would write?
+```
+
+`site/demo/fingerprint.txt` is what the demo is made of: the dashboard's files,
+the shim and the bar, and the *shape* of every recorded answer — the values left
+out, because a week of invented history ends at whatever moment it was recorded
+and a checksum over those would change on every run. The **Demo** workflow runs
+the same check on every push, so a dashboard change that is not followed by
+`make demo` fails the build instead of quietly shipping yesterday's interface.
+
+`site/demo.html` is a redirect to `site/demo/`, kept for the links that pointed
+at the old address.
 
 ## The illustrations
 
