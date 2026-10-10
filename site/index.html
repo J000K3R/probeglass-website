@@ -339,7 +339,7 @@
   --restart unless-stopped \
   -p 8080:8080 \
   -v weatherglass-data:/data \
-  j000k3r/weatherglass:latest</code></pre>
+  ghcr.io/j000k3r/weatherglass:dev</code></pre>
         </div>
         <p>
           Open <code>http://localhost:8080</code> and set a password in the
@@ -347,6 +347,15 @@
           use ICMP ping sensors; without it Weatherglass falls back to an
           unprivileged ping and tells you in the result if that is not
           available either.
+        </p>
+        <p class="muted">
+          The image is on the GitHub Container Registry and is public, so no
+          account and no <code>docker login</code> is needed. For now it carries
+          one moving tag, <code>dev</code>, and each build also carries the
+          commit it was made from —
+          <a href="https://github.com/j000k3r/weatherglass/pkgs/container/weatherglass">pick
+          a <code>sha-…</code> tag there</a> if you want a build that never
+          changes under you. Version tags arrive with the 0.1.0 release.
         </p>
 
         <h3>Compose</h3>
@@ -366,7 +375,7 @@ docker compose up -d</code></pre>
         <div class="code">
           <button class="copy" data-copy="#cmd-demo" aria-label="Copy command">Copy</button>
 <pre id="cmd-demo"><code>docker run --rm -v weatherglass-demo:/data \
-  j000k3r/weatherglass:latest seed --demo</code></pre>
+  ghcr.io/j000k3r/weatherglass:dev seed --demo</code></pre>
         </div>
       </div>
 
@@ -574,7 +583,7 @@ docker compose up -d</code></pre>
       <h4>Project</h4>
       <ul>
         <li><a href="https://github.com/j000k3r/weatherglass">Source</a></li>
-        <li><a href="https://hub.docker.com/r/j000k3r/weatherglass">Docker Hub</a></li>
+        <li><a href="https://github.com/j000k3r/weatherglass/pkgs/container/weatherglass">Container image</a></li>
         <li><a href="https://github.com/j000k3r/weatherglass/issues">Issues</a></li>
         <li><a href="https://github.com/j000k3r/weatherglass/blob/main/LICENSE">License</a></li>
       </ul>
