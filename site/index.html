@@ -394,8 +394,11 @@ docker compose up -d</code></pre>
             <code>HEALTHCHECK</code> calls.</dd>
         </dl>
         <p class="muted">
-          The image is distroless and runs as a non-root user: no shell, no
-          package manager, nothing to log into.
+          The image is distroless: no shell, no package manager, nothing to log
+          into. It starts as root for the one moment it takes to hand its data
+          folder over to <code>PUID:PGID</code>, and is unprivileged from before
+          the first file is opened — so a mounted folder you never chowned just
+          works.
         </p>
       </aside>
     </div>
