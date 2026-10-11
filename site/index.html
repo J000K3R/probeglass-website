@@ -445,11 +445,12 @@ docker compose up -d</code></pre>
     </details>
 
     <details>
-      <summary>Why does a failed probe say “Unknown” and not “Down”?</summary>
-      <p>Because at that moment the honest answer is that we do not know yet.
-      With retries configured, one failed probe is a blip. It becomes Down when
-      the failure streak reaches the threshold — and that is when the incident
-      opens and the alert goes out.</p>
+      <summary>Why does a failed probe say “Flaky” and not “Down”?</summary>
+      <p>Because at that moment the honest answer is that the last probe failed
+      and it has not failed often enough to call it down. With retries
+      configured, one failed probe is a blip. It becomes Down when the failure
+      streak reaches the threshold — and that is when the incident opens and the
+      alert goes out.</p>
     </details>
 
     <details>
