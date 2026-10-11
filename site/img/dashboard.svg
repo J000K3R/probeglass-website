@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 450" width="720" height="450" role="img">
-<title>Weatherglass dashboard</title>
+<title>ProbeGlass dashboard</title>
 <desc>Illustration of the dashboard: a top bar with the section tabs, the search box, the layout switcher and the account chip, then a status summary, then groups of sensor cards with response times and sparklines.</desc>
 <rect x="0" y="0" width="720" height="450" rx="0" fill="#0e1116"/>
 <rect x="0" y="0" width="720" height="40" rx="0" fill="#151a21"/>
 <line x1="0" y1="40" x2="720" y2="40" stroke="#262e3a"/>
 <circle cx="26" cy="20" r="7" fill="#60a5fa" opacity="0.18"/>
 <circle cx="26" cy="20" r="3.2" fill="#60a5fa"/>
-<text x="38" y="24" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="11" fill="#e6ebf2" font-weight="650" text-anchor="start">Weatherglass</text>
+<text x="38" y="24" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="11" fill="#e6ebf2" font-weight="650" text-anchor="start">ProbeGlass</text>
 <rect x="118" y="11" width="62" height="18" rx="5" fill="#1c232c"/>
 <text x="149" y="24" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#e6ebf2" font-weight="600" text-anchor="middle">Dashboard</text>
 <text x="210" y="24" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" fill="#6b7889" font-weight="500" text-anchor="middle">Incidents</text>

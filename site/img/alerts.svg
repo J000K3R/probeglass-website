@@ -10,14 +10,14 @@
 <text x="54" y="114" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#9aa7b8" font-weight="400" text-anchor="start">https://nas.lan:5001/health</text>
 <text x="54" y="132" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#ef4444" font-weight="400" text-anchor="start">connection refused</text>
 <text x="54" y="154" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#9aa7b8" font-weight="400" text-anchor="start">Down since 20:38:02 (6m ago)</text>
-<text x="54" y="176" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#60a5fa" font-weight="400" text-anchor="start">https://weatherglass.lan/c/4</text>
-<text x="54" y="192" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">Weatherglass</text>
+<text x="54" y="176" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#60a5fa" font-weight="400" text-anchor="start">https://probeglass.lan/c/4</text>
+<text x="54" y="192" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">ProbeGlass</text>
 <rect x="60" y="214" width="250" height="86" rx="8" fill="#0e1116" stroke="#262e3a" stroke-width="1"/>
 <rect x="60" y="214" width="3" height="86" fill="#22c55e" rx="1.5"/>
 <text x="74" y="236" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#e6ebf2" font-weight="650" text-anchor="start">NAS is up again</text>
 <text x="74" y="254" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#9aa7b8" font-weight="400" text-anchor="start">200 OK in 21 ms</text>
 <text x="74" y="274" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#9aa7b8" font-weight="400" text-anchor="start">Was down for 6m 12s.</text>
-<text x="74" y="292" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">Weatherglass</text>
+<text x="74" y="292" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">ProbeGlass</text>
 <rect x="40" y="372" width="290" height="28" rx="14" fill="#0e1116" stroke="#262e3a" stroke-width="1"/>
 <text x="56" y="390" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="9" fill="#6b7889" font-weight="400" text-anchor="start">Message</text>
 <rect x="370" y="30" width="330" height="390" rx="10" fill="#ffffff" stroke="#dce3ec" stroke-width="1"/>
@@ -28,14 +28,14 @@
 <text x="404" y="114" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#4d5a6b" font-weight="400" text-anchor="start">https://nas.lan:5001/health</text>
 <text x="404" y="132" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#ef4444" font-weight="400" text-anchor="start">connection refused</text>
 <text x="404" y="154" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#4d5a6b" font-weight="400" text-anchor="start">Down since 20:38:02 (6m ago)</text>
-<text x="404" y="176" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#60a5fa" font-weight="400" text-anchor="start">https://weatherglass.lan/c/4</text>
-<text x="404" y="192" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">Weatherglass</text>
+<text x="404" y="176" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#60a5fa" font-weight="400" text-anchor="start">https://probeglass.lan/c/4</text>
+<text x="404" y="192" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">ProbeGlass</text>
 <rect x="410" y="214" width="250" height="86" rx="8" fill="#f5f7fb" stroke="#dce3ec" stroke-width="1"/>
 <rect x="410" y="214" width="3" height="86" fill="#22c55e" rx="1.5"/>
 <text x="424" y="236" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="11.5" fill="#131922" font-weight="650" text-anchor="start">NAS is up again</text>
 <text x="424" y="254" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#4d5a6b" font-weight="400" text-anchor="start">200 OK in 21 ms</text>
 <text x="424" y="274" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8.5" fill="#4d5a6b" font-weight="400" text-anchor="start">Was down for 6m 12s.</text>
-<text x="424" y="292" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">Weatherglass</text>
+<text x="424" y="292" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="8" fill="#6b7889" font-weight="400" text-anchor="start">ProbeGlass</text>
 <rect x="390" y="372" width="290" height="28" rx="14" fill="#f5f7fb" stroke="#dce3ec" stroke-width="1"/>
 <text x="406" y="390" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="9" fill="#6b7889" font-weight="400" text-anchor="start">Message</text>
 </svg>

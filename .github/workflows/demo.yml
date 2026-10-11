@@ -37,7 +37,7 @@ jobs:
       - name: Check out the program
         uses: actions/checkout@v4
         with:
-          repository: j000k3r/weatherglass
+          repository: j000k3r/probeglass
           path: program
 
       - name: Set up Go

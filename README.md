@@ -1,9 +1,9 @@
-# weatherglass-website
+# probeglass-website
 
-The landing page for [Weatherglass](https://github.com/j000k3r/weatherglass) —
+The landing page for [ProbeGlass](https://github.com/j000k3r/probeglass) —
 a small, self-hosted watchdog for your homelab.
 
-It is published at **https://j000k3r.github.io/weatherglass-website/**.
+It is published at **https://j000k3r.github.io/probeglass-website/**.
 
 ## What this repository is, and is not
 
@@ -11,9 +11,9 @@ Three repositories make up the project, and they have three different jobs:
 
 | Repository | Holds | Published at |
 |---|---|---|
-| [`weatherglass`](https://github.com/j000k3r/weatherglass) | The program itself | `ghcr.io/j000k3r/weatherglass` |
-| [`weatherglass-docs`](https://github.com/j000k3r/weatherglass-docs) | Reference documentation, built with Docusaurus | `/weatherglass-docs/` |
-| **`weatherglass-website`** (this one) | The landing page: what it is, what it does, how to install it | `/weatherglass-website/` |
+| [`probeglass`](https://github.com/j000k3r/probeglass) | The program itself | `ghcr.io/j000k3r/probeglass` |
+| [`probeglass-docs`](https://github.com/j000k3r/probeglass-docs) | Reference documentation, built with Docusaurus | `/probeglass-docs/` |
+| **`probeglass-website`** (this one) | The landing page: what it is, what it does, how to install it | `/probeglass-website/` |
 
 The split is deliberate. The website answers *"should I run this?"* and the
 documentation answers *"how do I do X?"*. Putting both in one place produces a
@@ -87,7 +87,7 @@ None of that directory is edited by hand. It is written by `cmd/demogen` in the
 program's repository, which is expected to sit beside this one:
 
 ```bash
-cd ../weatherglass
+cd ../probeglass
 make demo          # regenerate site/demo/
 make demo-check    # is the published one still what this tree would write?
 ```
