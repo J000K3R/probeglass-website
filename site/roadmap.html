@@ -74,19 +74,13 @@
   <div class="wrap narrow">
     <p class="eyebrow">Now</p>
     <p class="roadmap-now-text">
-      0.1.0 is finished and published as a container image on GitHub —
-      <code>ghcr.io/j000k3r/probeglass:dev</code> is what a container pull
-      gives you today. The work in flight is the batch for the next tag: accounts
-      with roles, per-account two-factor authentication and settings, the simple
-      and the advanced interface, the guided tour, TLS certificate, Docker
-      container and SNMP sensors, example data you can take back out and load
-      again, and
-      <code>probeglass doctor</code> — and, on top of those, a search box that
-      reaches everything the installation holds, a dashboard that moves as each
-      probe lands, a Backup and restore panel, an incident filter, and a
-      step-by-step guide inside every alert channel form. It is a batch, not a
-      date: it ships when it is tested, in the one container there has always
-      been.
+      0.1.0 is released. <code>ghcr.io/j000k3r/probeglass:0.1.0</code> is the tag
+      to pin, <code>0.1</code> follows its patch releases and the binaries for
+      Linux, macOS, Windows and FreeBSD are on the release page. The work in
+      flight is the batch for 0.2.0, and it starts with more languages — the
+      interface is already built on a message catalogue, so German is a
+      translation file and an entry in the picker. It is a batch, not a date: it
+      ships when it is tested, in the one container there has always been.
     </p>
   </div>
 </section>
@@ -147,24 +141,24 @@
   </div>
 </section>
 
-<!-- ----------------------------------------------------- done, unreleased -->
+<!-- --------------------------------------------------- done, same release -->
 <section class="section">
   <div class="wrap narrow">
     <div class="roadmap-row">
-      <span class="roadmap-node roadmap-node--next" aria-hidden="true"></span>
+      <span class="roadmap-node roadmap-node--done" aria-hidden="true"></span>
       <div class="roadmap-head">
-        <h2>Built, in the next release</h2>
-        <span class="roadmap-chip roadmap-chip--next">next release</span>
+        <h2>The rest of 0.1.0</h2>
+        <span class="roadmap-chip roadmap-chip--done">0.1.0</span>
       </div>
       <p class="section-lede">
-        Everything here is built and waiting for the next tag. Already merged
-        into the same batch: a top-bar search that reaches sensors, sites,
-        channels, incidents, probe messages and settings; live updates that
-        patch a single card instead of redrawing the dashboard; a Backup and
-        restore panel that writes settings and sensors — and, if you ask, their
-        history — to one JSON file and reads it back; a step-by-step guide inside
-        every alert channel form; and filters on the incident list by status,
-        sensor, period and text.
+        These were built for the same tag rather than a later one, so a container
+        pull gives you everything above and everything below. In the same batch:
+        a top-bar search that reaches sensors, sites, channels, incidents, probe
+        messages and settings; live updates that patch a single card instead of
+        redrawing the dashboard; a Backup and restore panel that writes settings
+        and sensors — and, if you ask, their history — to one JSON file and reads
+        it back; a step-by-step guide inside every alert channel form; and filters
+        on the incident list by status, sensor, period and text.
       </p>
       <ul class="roadmap-list">
         <li>

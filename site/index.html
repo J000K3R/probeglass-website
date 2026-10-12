@@ -345,7 +345,7 @@
   --restart unless-stopped \
   -p 8080:8080 \
   -v probeglass-data:/data \
-  ghcr.io/j000k3r/probeglass:dev</code></pre>
+  ghcr.io/j000k3r/probeglass:0.1.0</code></pre>
         </div>
         <p>
           Open <code>http://localhost:8080</code> and set a password in the
@@ -356,12 +356,13 @@
         </p>
         <p class="muted">
           The image is on the GitHub Container Registry and is public, so no
-          account and no <code>docker login</code> is needed. For now it carries
-          one moving tag, <code>dev</code>, and each build also carries the
-          commit it was made from —
+          account and no <code>docker login</code> is needed. <code>0.1.0</code>
+          is the exact version and never changes under you; <code>0.1</code>
+          follows its patch releases and <code>latest</code> the newest release
+          of all. Every build also carries the commit it was made from —
           <a href="https://github.com/j000k3r/probeglass/pkgs/container/probeglass">pick
-          a <code>sha-…</code> tag there</a> if you want a build that never
-          changes under you. Version tags arrive with the 0.1.0 release.
+          a <code>sha-…</code> tag there</a> if you want one exact build, and
+          <code>dev</code> if you want whatever is in the tree today.
         </p>
 
         <h3>Compose</h3>
@@ -381,7 +382,7 @@ docker compose up -d</code></pre>
         <div class="code">
           <button class="copy" data-copy="#cmd-demo" aria-label="Copy command">Copy</button>
 <pre id="cmd-demo"><code>docker run --rm -v probeglass-demo:/data \
-  ghcr.io/j000k3r/probeglass:dev seed --demo</code></pre>
+  ghcr.io/j000k3r/probeglass:0.1.0 seed --demo</code></pre>
         </div>
       </div>
 
