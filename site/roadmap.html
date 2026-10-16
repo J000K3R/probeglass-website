@@ -74,14 +74,17 @@
   <div class="wrap narrow">
     <p class="eyebrow">Now</p>
     <p class="roadmap-now-text">
-      0.1.0 is released. <code>ghcr.io/j000k3r/probeglass:0.1.0</code> is the tag
-      to pin, <code>0.1</code> follows its patch releases and the binaries for
-      Linux, macOS, Windows and FreeBSD are on the release page. The work in
-      flight is the batch for 0.2.0, and the first item of it is done: German
-      has joined English behind the language picker, and a dictionary is one
-      file, so the language after that is a translation and nothing else. It is
-      a batch, not a date: it ships when it is tested, in the one container there
-      has always been.
+      0.1.0 is released, and <code>ghcr.io/j000k3r/probeglass:0.1.0</code> is the
+      tag to pin. From 0.2.0 the container is the only thing it ships: the
+      archives for macOS, Windows and FreeBSD are gone, because they promised a
+      way to run this that nothing described. The work in flight is the batch for
+      0.2.0, and two of its items are done. German has joined English behind the
+      language picker, and a dictionary is one file, so the language after that is
+      a translation and nothing else. And a sensor can now be told in advance that
+      it is allowed to be away: the checks it fails in that period open no
+      incident, send no alert and are left out of the uptime figure, while the
+      probe keeps running. It is a batch, not a date: it ships when it is tested, in
+      the one container there has always been.
     </p>
   </div>
 </section>
@@ -137,6 +140,7 @@
           with a test suite across the store, the configuration, the probe
           engines and the API.</span>
         </li>
+
       </ul>
     </div>
   </div>
@@ -253,12 +257,6 @@
           follows a redirect chain and reports what it found.</span>
         </li>
         <li>
-          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
-          <span><strong>Maintenance windows.</strong> Silence a sensor or a group
-          for a defined period, so expected downtime opens no incident and does
-          not count against the uptime figure.</span>
-        </li>
-        <li>
           <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
           <span><strong>Dependencies between sensors.</strong> Mark the router as
           a parent of everything behind it, so one power cut is one incident
@@ -366,9 +364,8 @@
         </li>
         <li>
           <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2.4 5.2h11.2M2.4 10.8h11.2"/><circle cx="5.7" cy="5.2" r="1.7"/><circle cx="10.3" cy="10.8" r="1.7"/></svg>
-          <span><strong>Windows and macOS service installation.</strong> The
-          binary builds for both, but the packaging target is a Linux
-          container.</span>
+          <span><strong>Windows and macOS at all.</strong> The container is the
+          only thing that ships; there is no archive to unpack on a desktop.</span>
         </li>
         <li>
           <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
