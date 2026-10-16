@@ -107,9 +107,18 @@ export const de = {
   'summary.probes': 'Prüfungen 24 h',
   'summary.monitoringSince': 'Überwacht seit',
   // Die Vergleichszeile unter einer Zahl im Kopf: dieselbe Größe über eine
-  // Woche, damit „94 ms“ etwas hat, woran man es liest. Kurz, weil sie in einer
-  // Kachel in einer Zeile steht, und passend zu den „7 T“, die die Sensorkarten
-  // schon immer benutzen.
+  // Die drei Vergleichszahlen unter einer Sensorkarte: dieselbe Verfügbarkeit über
+  // einen Tag, eine Woche und einen Monat, damit ein Prozentwert etwas hat, woran
+  // man ihn liest.
+  //
+  // Sie sind Schlüssel und keine feste Zeichenkette im Markup der Karte, weil „7d“
+  // in keiner Sprache ein Wort ist, sondern eine Abkürzung — und Deutsch schreibt
+  // sie „7 T“. Die Karte trug die feste Zeichenkette, bis die Oberfläche übersetzt
+  // wurde; so kam ein deutsches Dashboard dazu, in der einen Zeile, in der drei
+  // Abkürzungen nebeneinander stehen, „7d“ zu sagen. Die Vergleichszeile im Kopf
+  // borgt sich weekShort, damit beide gleich lesen.
+  'summary.dayShort': '24 Std.',
+  'summary.monthShort': '30 T',
   'summary.weekShort': '7 T',
 
   // Der Kopf ist ein Streifen aus Widgets, die man selbst anordnet, also braucht
@@ -199,6 +208,18 @@ export const de = {
   // „1 neue Prüfungen“ klingt, als rede ein Programm mit sich selbst.
   'detail.newProbe': '1 neue Prüfung — anzeigen',
   'detail.newProbes': '{count} neue Prüfungen — anzeigen',
+
+  // Wie lange die letzte Prüfung her ist — auf jeder Karte und in zwei Widgets.
+  // Die kürzesten Zeichenketten der Datei und die, die ein Leser am häufigsten
+  // sieht. Hier ändert eine Sprache nicht nur die Wörter, sondern den Bau des
+  // Satzes: Englisch stellt die Zahl voran und die Einheit dahinter, Deutsch
+  // dreht das Ganze um. Die Zahl kommt als {n} an und wird nicht im Code
+  // angeklebt, damit beides ein Satz ist, den eine Übersetzung schreiben kann.
+  'time.justNow': 'gerade eben',
+  'time.secondsAgo': 'vor {n}s',
+  'time.minutesAgo': 'vor {n} Min.',
+  'time.hoursAgo': 'vor {n} Std.',
+  'time.daysAgo': 'vor {n} T.',
 
   'range.1h': '1 Stunde',
   'range.24h': '24 Stunden',
@@ -543,6 +564,43 @@ export const de = {
   'examples.restore': 'Beispieldaten laden',
   'examples.confirmLoad': 'Die Beispieldaten laden? Das fügt den vollständigen Beispielsatz hinzu — Sensoren in ihren Gruppen, an den Orten, die dazugehören — mit einer Woche erfundener Historie. Nichts, was du angelegt hast, wird angerührt.',
   'examples.restored': 'Beispieldaten geladen: {sensors} Sensor(en), {results} Prüfung(en), {incidents} Vorfall/Vorfälle, {sites} Ort(e).',
+  // Die Wartungsfenster: die Zeiträume, in denen ein Sensor ausgefallen sein darf.
+  // Sie stehen neben den Standorten, weil sie dieselbe Art Entscheidung sind —
+  // etwas, das ein Administrator im Voraus für die Installation festlegt.
+  'windows.title': 'Wartungsfenster',
+  'windows.hint': 'Ein Sensor in einem Fenster öffnet keinen Vorfall und meldet nichts, und die fehlgeschlagenen Prüfungen darin zählen nicht gegen seine Verfügbarkeit. Geprüft wird trotzdem weiter — die Grafik zeigt also, ob das Gerät früher zurück war.',
+  'windows.emptyBody': 'Noch keine Wartungsfenster. Es wird nichts stummgeschaltet.',
+  'windows.new': 'Neues Fenster',
+  'windows.newTitle': 'Neues Wartungsfenster',
+  'windows.editTitle': 'Wartungsfenster bearbeiten',
+  'windows.what': 'Gilt für',
+  'windows.when': 'Wann',
+  'windows.note': 'Notiz',
+  'windows.notePlaceholder': 'Wöchentliche Sicherung, Firmware-Update …',
+  'windows.state': 'Zustand',
+  'windows.running': 'Läuft gerade',
+  'windows.waiting': 'Wartet',
+  'windows.off': 'Aus',
+  'windows.managed': 'In der Konfigurationsdatei festgelegt',
+  'windows.scope': 'Gilt für',
+  'windows.scopeSensors': 'Ein Sensor',
+  'windows.scopeGroups': 'Eine ganze Gruppe',
+  'windows.kind': 'Wiederholt sich',
+  'windows.kindOnce': 'Einmalig, zwischen zwei Zeitpunkten',
+  'windows.kindWeekly': 'Jede Woche, an gewählten Tagen',
+  'windows.from': 'Von',
+  'windows.to': 'Bis',
+  'windows.days': 'Tage',
+  'windows.everyDay': 'täglich {span}',
+  'windows.groupName': 'Gruppe „{group}“',
+  'windows.sensorGone': 'Sensor #{id} (gelöscht)',
+  'windows.enabled': 'Aktiv',
+  'windows.enabledHint': 'Ein ausgeschaltetes Fenster schaltet nichts stumm und bleibt in der Liste.',
+  'windows.created': 'Wartungsfenster angelegt.',
+  'windows.updated': 'Wartungsfenster gespeichert.',
+  'windows.deleted': 'Wartungsfenster entfernt.',
+  'windows.deleteConfirm': 'Das Wartungsfenster für {what} löschen? Der Sensor wird ab jetzt wieder normal überwacht.',
+
   'examples.badge': 'Beispiel',
   'examples.badgeHint': 'Dieser Sensor ist Beispieldaten, keiner von deinen. Die Einstellungen können ihn entfernen.',
 

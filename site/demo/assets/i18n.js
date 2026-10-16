@@ -107,10 +107,17 @@ const en = {
   'summary.latency': 'Latency 24h',
   'summary.probes': 'Probes 24h',
   'summary.monitoringSince': 'Monitoring since',
-  // The comparison line under a figure in the header: the same measure over a
-  // week, so that "94 ms" has something to be read against. Short because it sits
-  // on one line in a tile, and matches the "7d" the sensor cards have used all
-  // along.
+  // The three comparison figures under a sensor card: the same uptime over a day,
+  // a week and a month, so that a percentage has something to be read against.
+  //
+  // They are keys rather than a literal in the card's markup because "7d" is not a
+  // word in any language — it is a shorthand, and German writes it "7 T". The card
+  // carried the literal until the interface was translated, which is how a
+  // German dashboard came to say "7d" in the one strip where three abbreviations
+  // sit side by side. The header's comparison line borrows weekShort, so the two
+  // still read the same.
+  'summary.dayShort': '24h',
+  'summary.monthShort': '30d',
   'summary.weekShort': '7d',
 
   // The header is a strip of widgets the person arranges themselves, so every
@@ -200,6 +207,24 @@ const en = {
   // probes" reads as a program talking to itself.
   'detail.newProbe': '1 new check — show it',
   'detail.newProbes': '{count} new checks — show them',
+
+  // How long ago the last check was, on every card and in two of the widgets.
+  // These are the shortest strings in the file and the ones a reader sees most
+  // often, and they are the one place where a language changes the shape of the
+  // sentence rather than only the words: English puts the amount first and the
+  // unit after it, German turns the whole thing around. The number arrives as
+  // {n} rather than being glued on in code, so both are a sentence a translator
+  // can write, not a prefix with a number under it.
+  //
+  // Five separate keys rather than one with a unit in it, because the unit is
+  // not always an abbreviation of the same word — "min" and "h" are not "Minute"
+  // and "Stunde" in any language, and a translator given `{n} {unit}` would have
+  // to be handed the same English abbreviations the code happens to hold.
+  'time.justNow': 'just now',
+  'time.secondsAgo': '{n}s ago',
+  'time.minutesAgo': '{n} min ago',
+  'time.hoursAgo': '{n} h ago',
+  'time.daysAgo': '{n} d ago',
 
   'range.1h': '1 hour',
   'range.24h': '24 hours',
@@ -542,6 +567,43 @@ const en = {
   'examples.restore': 'Load example data',
   'examples.confirmLoad': 'Load the example data? This adds the full example data set — sensors in their groups, at the places that come with it — with a week of invented history. Nothing you created is touched.',
   'examples.restored': 'Example data loaded: {sensors} sensor(s), {results} probe(s), {incidents} incident(s), {sites} place(s).',
+  // The maintenance windows: the periods during which a sensor is expected to be
+  // down. They sit beside the sites because they are the same kind of decision —
+  // something an administrator settles in advance about the installation.
+  'windows.title': 'Maintenance windows',
+  'windows.hint': 'A sensor inside a window opens no incident and sends no alert, and the checks it fails in there do not count against its uptime. The check itself keeps running, so the chart still shows whether the box came back early.',
+  'windows.emptyBody': 'No maintenance windows yet. Nothing is silenced.',
+  'windows.new': 'New window',
+  'windows.newTitle': 'New maintenance window',
+  'windows.editTitle': 'Edit maintenance window',
+  'windows.what': 'Applies to',
+  'windows.when': 'When',
+  'windows.note': 'Note',
+  'windows.notePlaceholder': 'Weekly backup, firmware update …',
+  'windows.state': 'State',
+  'windows.running': 'Running now',
+  'windows.waiting': 'Waiting',
+  'windows.off': 'Off',
+  'windows.managed': 'Declared in the configuration file',
+  'windows.scope': 'Applies to',
+  'windows.scopeSensors': 'One sensor',
+  'windows.scopeGroups': 'A whole group',
+  'windows.kind': 'Repeats',
+  'windows.kindOnce': 'Once, between two times',
+  'windows.kindWeekly': 'Every week, on chosen days',
+  'windows.from': 'From',
+  'windows.to': 'To',
+  'windows.days': 'Days',
+  'windows.everyDay': 'every day {span}',
+  'windows.groupName': 'Group “{group}”',
+  'windows.sensorGone': 'sensor #{id} (deleted)',
+  'windows.enabled': 'Active',
+  'windows.enabledHint': 'A window that is off silences nothing and stays in the list.',
+  'windows.created': 'Maintenance window added.',
+  'windows.updated': 'Maintenance window saved.',
+  'windows.deleted': 'Maintenance window removed.',
+  'windows.deleteConfirm': 'Delete the maintenance window for {what}? The sensor is watched as usual from now on.',
+
   'examples.badge': 'Example',
   'examples.badgeHint': 'This sensor is example data, not one of yours. Settings can remove it.',
 
