@@ -80,10 +80,12 @@
       way to run this that nothing described. The work in flight is the batch for
       0.2.0, and two of its items are done. German has joined English behind the
       language picker, and a dictionary is one file, so the language after that is
-      a translation and nothing else. And a sensor can now be told in advance that
-      it is allowed to be away: the checks it fails in that period open no
+      a translation and nothing else. A sensor can be told in advance that it is
+      allowed to be away: the checks it fails in that period open no
       incident, send no alert and are left out of the uptime figure, while the
-      probe keeps running. It is a batch, not a date: it ships when it is tested, in
+      probe keeps running. And a sensor can be told which one it sits behind: while
+      that parent is down it opens no incident of its own, so one power cut is one
+      outage instead of thirty. It is a batch, not a date: it ships when it is tested, in
       the one container there has always been.
     </p>
   </div>
