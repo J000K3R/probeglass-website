@@ -345,7 +345,7 @@
   --restart unless-stopped \
   -p 8080:8080 \
   -v probeglass-data:/data \
-  ghcr.io/j000k3r/probeglass:0.1.0</code></pre>
+  ghcr.io/j000k3r/probeglass:0.2.0</code></pre>
         </div>
         <p>
           Open <code>http://localhost:8080</code> and set a password in the
@@ -356,7 +356,7 @@
         </p>
         <p class="muted">
           The image is on the GitHub Container Registry and is public, so no
-          account and no <code>docker login</code> is needed. <code>0.1.0</code>
+          account and no <code>docker login</code> is needed. <code>0.2.0</code>
           is the exact version and never changes under you; <code>0.1</code>
           follows its patch releases and <code>latest</code> the newest release
           of all. Every build also carries the commit it was made from —
@@ -382,7 +382,7 @@ docker compose up -d</code></pre>
         <div class="code">
           <button class="copy" data-copy="#cmd-demo" aria-label="Copy command">Copy</button>
 <pre id="cmd-demo"><code>docker run --rm -v probeglass-demo:/data \
-  ghcr.io/j000k3r/probeglass:0.1.0 seed --demo</code></pre>
+  ghcr.io/j000k3r/probeglass:0.2.0 seed --demo</code></pre>
         </div>
       </div>
 
