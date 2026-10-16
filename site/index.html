@@ -431,7 +431,6 @@ docker compose up -d</code></pre>
           <tr><td>Install</td><td>One container</td><td>Container plus a database container</td></tr>
           <tr><td>Data</td><td>One SQLite file you can copy</td><td>A database server, or a volume of JSON</td></tr>
           <tr><td>Frontend build</td><td>None — embedded in the binary</td><td>Usually a Node build step</td></tr>
-          <tr><td>Cross-compiles to</td><td>amd64, arm64, armv7, darwin, windows, freebsd</td><td>Usually amd64 only</td></tr>
           <tr><td>Works with no internet</td><td>Yes, entirely</td><td>Often depends on a CDN for assets</td></tr>
         </tbody>
       </table>
@@ -446,9 +445,8 @@ docker compose up -d</code></pre>
 
     <details>
       <summary>Does it need a database server?</summary>
-      <p>No. It uses SQLite through a pure-Go implementation, so the binary is
-      static and cross-compiles with <code>CGO_ENABLED=0</code>. The database is
-      one file.</p>
+      <p>No. It uses SQLite through a pure-Go implementation, so there is
+      nothing to install alongside it. The database is one file.</p>
     </details>
 
     <details>
