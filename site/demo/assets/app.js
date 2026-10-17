@@ -1824,6 +1824,10 @@ function unmountMap() {
 function mountWidgets() {
   widgetsUI.mount($('#summary'), $('#widgets-tools'), {
     state: () => state,
+    // The clock reads one of them — see clockTime in that module — and reads it through
+    // a getter rather than once, because the tile is drawn before any preference has
+    // been chosen and again after somebody changes one.
+    ui: () => ui,
     can,
     openDetail,
     setRoute,
@@ -1896,15 +1900,28 @@ function channelTone(channel) {
  */
 function statusPill(sensor) {
   const s = sensor || {};
-  // One badge, whichever reason applies, and the server decides which — it is the
-  // same answer the scheduler acted on, so a card cannot say "expected" about a
-  // failure that opened an incident.
-  const badge = s.excuse === 'dependency'
-    ? `<span class="pill st-dep" title="${esc(t('dependent.badgeHint'))}">${esc(t('dependent.badge'))}</span>`
-    : s.excuse === 'maintenance'
-      ? `<span class="pill st-maint" title="${esc(t('windows.badgeHint'))}">${esc(t('windows.badge'))}</span>`
-      : '';
-  return `<span class="pill st-${esc(s.status)}"><i class="dot"></i>${esc(statusWord(s.status))}</span>${badge}`;
+  return `<span class="pill st-${esc(s.status)}"><i class="dot"></i>${esc(statusWord(s.status))}</span>` +
+    excuseBadge(s);
+}
+
+/**
+ * excuseBadge is the marker for a sensor that is down for a reason that is not its own,
+ * or the empty string when the status is its own business.
+ *
+ * One function because there are two places that draw it — the cards and the detail
+ * dialog — and they had drifted apart within the hour: the dialog was still asking for
+ * `in_maintenance`, which is the field this replaced, so a sensor that the card behind
+ * it was marking as Dependent showed up in the dialog as plain "Down".
+ */
+function excuseBadge(sensor) {
+  const s = sensor || {};
+  if (s.excuse === 'dependency') {
+    return `<span class="pill st-dep" title="${esc(t('dependent.badgeHint'))}">${esc(t('dependent.badge'))}</span>`;
+  }
+  if (s.excuse === 'maintenance') {
+    return `<span class="pill st-maint" title="${esc(t('windows.badgeHint'))}">${esc(t('windows.badge'))}</span>`;
+  }
+  return '';
 }
 
 /**
@@ -2191,11 +2208,14 @@ function syncDetailStatus(sensor) {
   // The maintenance pill lives beside the status pill in the header, built the same
   // way the cards build it, so the two cannot drift apart.
   const existing = heading.parentElement.querySelector('.pill.st-maint');
-  if (c.in_maintenance && !existing) {
-    heading.insertAdjacentHTML('afterend',
-      `<span class="pill st-maint" title="${esc(t('windows.badgeHint'))}">${esc(t('windows.badge'))}</span>`);
-  } else if (!c.in_maintenance && existing) {
+  if (c.excuse && !existing) {
+    heading.insertAdjacentHTML('afterend', excuseBadge(c));
+  } else if (!c.excuse && existing) {
     existing.remove();
+  } else if (c.excuse && existing) {
+    // The reason can change while the window is open — a parent that was down recovers
+    // and a maintenance window begins — so the badge is replaced rather than kept.
+    existing.outerHTML = excuseBadge(c);
   }
 }
 
@@ -2239,6 +2259,31 @@ function detailMarkup(id, series, uptime, results) {
     ? `<div class="banner crit">${esc(t('detail.openSince'))} ${esc(C.fmtDateTime(outage.started_at))} · ${esc(C.fmtDuration(Date.now() - new Date(outage.started_at).getTime()))} ${acked}</div>`
     : '';
 
+  // What this sensor sits behind, and what sits behind it.
+  //
+  // The dialog is where somebody has gone to look at one sensor, and the relationship is
+  // the one thing about it that is not visible on the card: the badge says "expected"
+  // when a parent is down, and says nothing at all when everything is fine. That is the
+  // case this is for — a sensor that is behind another one and currently green, where
+  // the only clue was the editor.
+  //
+  // Both directions, because they answer different questions: what happens to this one
+  // if something else goes, and what happens to other people's sensors if this one does.
+  const parent = (state.sensors || []).find((c) => c.name === sensor.parent);
+  const dependents = (state.sensors || []).filter((c) => c.parent === sensor.name);
+  const links = [
+    sensor.parent
+      ? `<span>${esc(t('detail.dependsOn', { name: sensor.parent }))}${
+          parent ? ` <span class="pill st-${esc(parent.status)}">${esc(statusWord(parent.status))}</span>` : ''}</span>`
+      : '',
+    dependents.length === 1
+      ? `<span>${esc(t('detail.dependedOnBy'))}</span>`
+      : dependents.length
+        ? `<span>${esc(t('detail.dependedOnByPlural', { count: dependents.length }))}</span>`
+        : '',
+  ].filter(Boolean).join('');
+  const relationships = links ? `<p class="muted small detail-links">${links}</p>` : '';
+
   const rows = (results || []).map((r) => `
     <tr class="${r.success ? '' : 'row-crit'}">
       <td class="muted">${esc(C.fmtDateTime(r.ts))}</td>
@@ -2250,6 +2295,7 @@ function detailMarkup(id, series, uptime, results) {
   return `
     ${open}
     <p class="muted detail-sub">${esc(sensor.type)} · ${esc(sensor.target)}${sensor.group ? ` · ${esc(sensor.group)}` : ''}</p>
+    ${relationships}
     <div class="detail-stats">
       <div class="stat"><span class="stat-label">${esc(t('detail.uptime'))}</span><span class="stat-value">${esc(C.fmtPct(stats.percent))}</span></div>
       <div class="stat"><span class="stat-label">${esc(t('detail.avg'))}</span><span class="stat-value">${esc(C.fmtLatency(stats.latency_ms))}</span></div>
@@ -3317,10 +3363,31 @@ function apiKeyText(key) {
  * Both write the same account preference, so the two views of it cannot disagree
  * — and a widget switched off here is off in the strip the moment it is clicked.
  */
+/**
+ * widgetsPanel is what the top of the dashboard shows, and how it is written.
+ *
+ * The clock is here rather than in Appearance because it is a widget's setting and not
+ * the dashboard's: the format it is written in belongs to the one tile that writes a
+ * time. It is a preference like the theme, so it goes through the same write path as the
+ * rest — see PrefClock, which is stored per account.
+ */
+function widgetsPanel() {
+  return `
+    <section class="panel" data-panel="widgets" data-group="widgets">
+      <div class="panel-head">
+        <h2>${esc(t('settings.widgets'))}</h2>
+        <p class="panel-hint">${esc(t('settings.widgetsHint'))}</p>
+      </div>
+      <div class="grid-2">
+        ${choice('clock', ui.clock, ['auto', '24', '12'])}
+      </div>
+      <p class="muted small">${esc(t('settings.clockHint'))}</p>
+      ${widgetPicker()}
+    </section>`;
+}
+
 function widgetPicker() {
   return `
-    <h3 class="section-title">${esc(t('settings.widgets'))}</h3>
-    <p class="muted small">${esc(t('settings.widgetsHint'))}</p>
     <ul class="widget-picks" id="widget-picks">${widgetPickRows()}</ul>
     <div class="form-actions">
       <button type="button" class="btn btn-small" data-pick-reset>${esc(t('widgets.reset'))}</button>
@@ -3846,8 +3913,8 @@ function maintenancePanel() {
   const windows = state.windows || [];
   const now = Date.now();
   const running = (w) => (w.sensor_id
-    ? (state.sensors || []).some((c) => c.id === w.sensor_id && c.in_maintenance)
-    : (state.sensors || []).some((c) => c.group === w.group && c.in_maintenance));
+    ? (state.sensors || []).some((c) => c.id === w.sensor_id && c.excuse === 'maintenance')
+    : (state.sensors || []).some((c) => c.group === w.group && c.excuse === 'maintenance'));
 
   const rows = windows.map((w) => `
     <tr data-id="${w.id}">
@@ -4044,6 +4111,10 @@ async function saveMap() {
 // lookup — see showSettingsCategory.
 const SETTINGS_GROUPS = [
   { key: 'look', panels: ['appearance', 'map'] },
+  // Its own category rather than a corner of Monitoring, which is where the header's
+  // arrangement used to sit: what the top of the dashboard shows is not what is being
+  // monitored, and Monitoring had grown to four panels.
+  { key: 'widgets', panels: ['widgets'] },
   { key: 'monitor', panels: ['dashboard', 'sites', 'maintenance', 'examples'] },
   { key: 'access', panels: ['access', 'users'] },
   { key: 'backup', panels: ['backup'] },
@@ -4057,6 +4128,7 @@ const SETTINGS_GROUPS = [
 const SETTINGS_ICONS = {
   look: '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12Z" fill="currentColor"/></svg>',
   monitor: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 8h3l2-4.5 3 9 2-4.5h3"/></svg>',
+  widgets: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="1.6" y="1.6" width="5.4" height="5.4" rx="1"/><rect x="9" y="1.6" width="5.4" height="5.4" rx="1"/><rect x="1.6" y="9" width="5.4" height="5.4" rx="1"/><rect x="9" y="9" width="5.4" height="5.4" rx="1"/></svg>',
   access: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="5.5" cy="5.5" r="3"/><path d="M7.8 7.8 14 14M11 11l-1.6 1.6M13 13l-1.6 1.6"/></svg>',
   backup: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="3.5" rx="1"/><path d="M3 6v6.5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6M6.5 9.2h3"/></svg>',
   help: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="6.2"/><path d="M8 7.2v4M8 4.9v.1"/></svg>',
@@ -4164,6 +4236,8 @@ async function renderSettings() {
     </section>
 
     ${mapPanel()}
+
+    ${widgetsPanel()}
 
     <section class="panel" data-panel="dashboard" data-group="monitor">
       <div class="panel-head">

@@ -207,6 +207,13 @@ const en = {
   'detail.incidents': 'Incidents in this window',
   'detail.downtime': 'Total downtime',
   'detail.openSince': 'Down since',
+  // The relationships, in the dialog rather than only in the editor: what this sensor
+  // sits behind, and what sits behind it. A card says "expected" when a parent is down
+  // and says nothing at all when everything is fine, so a green sensor behind another
+  // one gave no clue at all until somebody opened the form.
+  'detail.dependsOn': 'Depends on {name}',
+  'detail.dependedOnBy': '1 sensor sits behind this one',
+  'detail.dependedOnByPlural': '{count} sensors sit behind this one',
   'detail.lastProbe': 'Last probe',
   'detail.never': 'never',
   'detail.averageShort': 'avg',
@@ -308,6 +315,12 @@ const en = {
   // them. A panel heading stays a panel heading; these are the shelves the panels
   // stand on, and only the chosen one is on screen.
   'settings.group.look': 'Look',
+  'settings.group.widgets': 'Widgets',
+  'settings.clock': 'Clock',
+  'settings.clock.auto': 'Automatic',
+  'settings.clock.24': '24-hour',
+  'settings.clock.12': '12-hour',
+  'settings.clockHint': 'Automatic follows the interface language: German reads 14:30, English reads 2:30 PM. Choose one of the other two if the clock on the wall says otherwise.',
   'settings.group.monitor': 'Monitoring',
   'settings.group.access': 'Access',
   'settings.group.backup': 'Backup',
