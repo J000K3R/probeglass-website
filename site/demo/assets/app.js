@@ -3485,13 +3485,25 @@ function widgetsPanel() {
         ${choice('clock', ui.clock, ['auto', '24', '12'])}
       </div>
       <p class="muted small">${esc(t('settings.clockHint'))}</p>
-      ${widgetPicker()}
+      ${widgetPicker('widget-picks')}
     </section>`;
 }
 
-function widgetPicker() {
+/**
+ * widgetPicker is the list of every widget there is, with a place to move it to.
+ *
+ * It is drawn twice — once in the Widgets category and once at the bottom of the
+ * Dashboard panel, where the header is arranged — so it takes the id it is drawn
+ * under. Two elements with one id is invalid, and it is invalid in the way that bites:
+ * a lookup for that id finds whichever came first in the document, which is the copy
+ * in the other category and therefore hidden. A test that waited for it waited for a
+ * list nobody could see.
+ *
+ * The class is what the redraw goes by, since both copies have to follow a change.
+ */
+function widgetPicker(id) {
   return `
-    <ul class="widget-picks" id="widget-picks">${widgetPickRows()}</ul>
+    <ul class="widget-picks" id="${esc(id)}">${widgetPickRows()}</ul>
     <div class="form-actions">
       <button type="button" class="btn btn-small" data-pick-reset>${esc(t('widgets.reset'))}</button>
     </div>`;
@@ -3537,10 +3549,9 @@ async function persistWidgets(list) {
   syncWidgetPicker();
 }
 
-/** syncWidgetPicker redraws the picker's rows from the stored list. */
+/** syncWidgetPicker redraws both copies of the picker's rows from the stored list. */
 function syncWidgetPicker() {
-  const host = $('#widget-picks');
-  if (host) host.innerHTML = widgetPickRows();
+  for (const host of $$('.widget-picks')) host.innerHTML = widgetPickRows();
 }
 
 /** Move one widget one place along in the stored list. */
@@ -4522,7 +4533,7 @@ async function renderSettings() {
         <dt>${esc(t('settings.retentionHourly'))}</dt><dd>${runtime.retention_hourly_hours ? `${runtime.retention_hourly_hours} h` : '—'}</dd>
         <dt>${esc(t('settings.retentionDaily'))}</dt><dd>${esc(t('settings.retentionDailyValue'))}</dd>
       </dl>
-      ${widgetPicker()}
+      ${widgetPicker('widget-picks-board')}
     </section>
 
     ${sitesPanel()}
