@@ -74,19 +74,30 @@
   <div class="wrap narrow">
     <p class="eyebrow">Now</p>
     <p class="roadmap-now-text">
-      0.2.0 is released, and <code>ghcr.io/j000k3r/probeglass:0.2.1</code> is the
-      tag to pin. From 0.2.0 the container is the only thing it ships: the
-      archives for macOS, Windows and FreeBSD are gone, because they promised a
-      way to run this that nothing described. The work in flight is the batch for
-      0.2.0, and two of its items are done. German has joined English behind the
-      language picker, and a dictionary is one file, so the language after that is
-      a translation and nothing else. A sensor can be told in advance that it is
-      allowed to be away: the checks it fails in that period open no
-      incident, send no alert and are left out of the uptime figure, while the
-      probe keeps running. And a sensor can be told which one it sits behind: while
-      that parent is down it opens no incident of its own, so one power cut is one
-      outage instead of thirty. It is a batch, not a date: it ships when it is tested, in
-      the one container there has always been.
+      0.2.1 is released, and <code>ghcr.io/j000k3r/probeglass:0.2.1</code> is the
+      tag to pin — <code>:dev</code> follows the branch under development. From
+      0.2.0 the container is the only thing it ships: the archives for macOS,
+      Windows and FreeBSD are gone, because they promised a way to run this that
+      nothing described. 0.2.0 added maintenance windows, so a sensor can be told
+      in advance that it is allowed to be away: the checks it fails in that period
+      open no incident, send no alert and are left out of the uptime figure, while
+      the probe keeps running — and a second language, German, as one file, so the
+      next one is a translation and nothing else. 0.2.1 made a sensor that is
+      inside a window say so on its own card.
+    </p>
+    <p class="roadmap-now-text">
+      The batch in flight adds three things. A sensor can be told which one it
+      sits behind: while that parent is down it opens no incident of its own, so
+      one power cut is one outage instead of thirty. A sensor, a place and a
+      group's heading can each carry a symbol — twenty-six drawings ship inside
+      the binary and take the colour of the text around them, and an image of
+      your own can be uploaded instead, stored in the one SQLite file with
+      everything else; a group also gets a colour and a place in the order. And
+      the dashboard's own measurements are two scales now, so two things of the
+      same kind are the same size everywhere, instead of fifteen type sizes and
+      eighteen paddings that each looked right where it was written. It is a
+      batch, not a date: it ships when it is tested, in the one container there
+      has always been.
     </p>
   </div>
 </section>
@@ -181,7 +192,7 @@
         </li>
         <li>
           <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
-          <span><strong>Settings per account, split into five tabs.</strong>
+          <span><strong>Settings per account, in named tabs.</strong>
           Theme, accent, density, layout, language and interface mode follow the
           person rather than the installation, and the page shows the one
           category you chose rather than all of them in a column.</span>
@@ -259,16 +270,13 @@
           follows a redirect chain and reports what it found.</span>
         </li>
         <li>
-          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
-          <span><strong>Dependencies between sensors.</strong> Mark the router as
-          a parent of everything behind it, so one power cut is one incident
-          instead of thirty.</span>
-        </li>
-        <li>
           <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
-          <span><strong>Dashboard polish.</strong> Pin a sensor to the top,
-          per-group colours, a side-by-side comparison, and drag-to-arrange
-          groups.</span>
+          <span><strong>Drag-to-arrange groups.</strong> A group's colour and
+          symbol are in; its order is still a number typed in the editor, which
+          works and is not a thing anybody wants to do twice. The side-by-side
+          comparison this item once promised is the <strong>tree</strong>, the
+          <strong>wall</strong> and the <strong>map</strong>, and pinning a
+          sensor to the top is the header you build out of widgets.</span>
         </li>
         <li>
           <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="3.7" cy="8" r="1.9"/><circle cx="12.3" cy="3.7" r="1.9"/><circle cx="12.3" cy="12.3" r="1.9"/><path d="M5.4 7.1 10.7 4.7M5.4 8.9 10.7 11.3"/></svg>
