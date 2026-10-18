@@ -220,7 +220,7 @@ function panelMarkup(current) {
   return `
     <div class="icon-search">
       <label class="icon-search-label" for="${esc(panelID)}">${esc(t('icons.search'))}</label>
-      <input type="search" class="icon-search-input" id="${esc(panelID)}" data-icon-query
+      <input type="search" id="${esc(panelID)}" data-icon-query
              placeholder="${esc(t('icons.searchPlaceholder'))}" autocomplete="off" spellcheck="false">
       <div class="icon-grid icon-grid-online" data-icon-results hidden></div>
       <p class="icon-search-note" data-icon-note hidden></p>
