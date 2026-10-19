@@ -1,7 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img">
 <title>ProbeGlass</title>
-<circle cx="16" cy="16" r="13" fill="none" stroke="#60a5fa" stroke-width="2.4" opacity="0.35"/>
-<path d="M16 5.5 A10.5 10.5 0 0 1 26.5 16" fill="none" stroke="#60a5fa" stroke-width="2.6" stroke-linecap="round"/>
-<circle cx="16" cy="16" r="5.2" fill="#60a5fa"/>
-<circle cx="16" cy="16" r="2.2" fill="#0e1116"/>
+<!--
+  The product's mark: the dashboard's own favicon, internal/web/assets/favicon.svg,
+  drawn from the same geometry. The blue is the site's accent rather than the
+  dashboard's #2563eb, because this file is only ever drawn on the site's dark
+  background and the darker blue disappears into it.
+-->
+<circle cx="16" cy="16" r="14" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+<path d="M16 5.5a10.5 10.5 0 0 1 0 21z" fill="#60a5fa" opacity=".18"/>
+<path d="M16 18.5 22.5 10" stroke="#60a5fa" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="16" cy="18.5" r="2.2" fill="#60a5fa"/>
+<path d="M16 9.5v1.6M22.4 16h-1.6M16 24.5v-1.6" stroke="#60a5fa"
+      stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
 </svg>
