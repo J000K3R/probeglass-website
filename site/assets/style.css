@@ -441,6 +441,33 @@ details p { margin: 0.8rem 0 0.2rem; color: var(--text-dim); font-size: 0.94rem;
 .roadmap-now .eyebrow { margin-bottom: 0.6rem; }
 .roadmap-now-text { max-width: 64ch; margin: 0; color: var(--text-dim); font-size: 1.02rem; }
 
+/* What is happening right now, as cards rather than one long paragraph. The
+   dev cards carry the accent border so the branch and the release are told
+   apart at a glance. */
+.now-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 1.25rem;
+}
+.now-card {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.now-card--dev { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+.now-kicker {
+  margin: 0 0 0.35rem;
+  color: var(--text-faint);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.now-card--dev .now-kicker { color: var(--accent); }
+.now-card h3 { margin: 0 0 0.4rem; font-size: 1rem; line-height: 1.3; }
+.now-card p { margin: 0; color: var(--text-dim); font-size: 0.94rem; line-height: 1.45; }
+
 /* The proposals live in their own panel, so they never read as commitments. */
 .roadmap-suggested .roadmap-body {
   padding: 1.5rem 1.6rem;
