@@ -72,12 +72,19 @@
     <p class="eyebrow">Now</p>
     <p class="roadmap-now-text">
       0.2.3 is released, and <code>ghcr.io/j000k3r/probeglass:0.2.3</code> is the
-      tag to pin — <code>:dev</code> follows the branch under development. One
-      container, one SQLite file, and the same small dependency set it has always
-      had.
+      tag to pin — <code>:dev</code> follows the branch under development, where
+      0.3.0 is being built. One container, one SQLite file, and the same small
+      dependency set it has always had.
     </p>
 
     <div class="now-grid">
+      <article class="now-card">
+        <p class="now-kicker">In 0.3.0 so far</p>
+        <h3>Metrics a scraper can read</h3>
+        <p>A read-only <code>/metrics</code> endpoint for Prometheus: sensor state,
+        the 24-hour, 7-day and 30-day uptime, the last latency and the open
+        incidents — behind a token of its own, not the API key.</p>
+      </article>
       <article class="now-card">
         <p class="now-kicker">Released in 0.2.3</p>
         <h3>Six more sensor types</h3>
@@ -156,15 +163,9 @@
         <span class="roadmap-chip roadmap-chip--next">0.3.x and beyond</span>
       </div>
       <p class="section-lede">
-        The 0.2.x list is complete. Ordered by value per unit of work.
+        The rest of 0.3.0. Ordered by value per unit of work.
       </p>
       <ul class="roadmap-list">
-        <li>
-          <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="3.9" rx="5" ry="2.1"/><path d="M3 3.9v8.2c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1V3.9M3 8c0 1.16 2.24 2.1 5 2.1s5-.94 5-2.1"/></svg>
-          <span><strong>A <code>/metrics</code> endpoint</strong>, so a homelab
-          that already runs a monitoring stack can scrape ProbeGlass instead of
-          duplicating the checks it already makes.</span>
-        </li>
         <li>
           <svg class="roadmap-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.9" y="3" width="12.2" height="10" rx="2"/><path d="M1.9 5.9h12.2M4.4 4.45h.01M6.3 4.45h.01"/></svg>
           <span><strong>A public status page</strong> on its own path and its own
