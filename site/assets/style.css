@@ -198,6 +198,10 @@ code {
 }
 .badges li::before { content: "· "; }
 .badges li:first-child::before { content: ""; }
+/* The star badge is a link, and it should not look like one more line of prose:
+   the colour is the only hint, and it comes from the anchor rule below. */
+.badges .badge-link { color: inherit; text-decoration: none; }
+.badges .badge-link:hover { color: var(--accent); }
 
 /* ------------------------------------------------------------------ image */
 

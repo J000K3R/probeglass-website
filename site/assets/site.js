@@ -75,4 +75,44 @@
     document.body.removeChild(area);
     return ok;
   }
+
+  // --- GitHub stars ------------------------------------------------------
+  //
+  // The count is fetched from the public API and cached for ten minutes, so a
+  // reader refreshing the page does not spend the unauthenticated allowance the
+  // API gives each address. Without JavaScript the badge still reads "GitHub";
+  // with it, the number replaces the word and the link is unchanged.
+  var starBox = document.querySelector('[data-gh-stars]');
+  if (starBox) {
+    var key = 'pg-gh-stars';
+    var cached = null;
+    try {
+      cached = JSON.parse(sessionStorage.getItem(key) || 'null');
+    } catch (err) {
+      cached = null;
+    }
+    var fresh = cached && typeof cached.at === 'number' && Date.now() - cached.at < 600000;
+    if (fresh) {
+      starBox.textContent = String(cached.n);
+    } else {
+      fetch('https://api.github.com/repos/J000K3R/probeglass', {
+        headers: { Accept: 'application/vnd.github+json' },
+      })
+        .then(function (response) {
+          return response.ok ? response.json() : null;
+        })
+        .then(function (data) {
+          if (!data || typeof data.stargazers_count !== 'number') return;
+          starBox.textContent = String(data.stargazers_count);
+          try {
+            sessionStorage.setItem(key, JSON.stringify({ n: data.stargazers_count, at: Date.now() }));
+          } catch (err) {
+            // A full or blocked sessionStorage is not a reason to lose the count.
+          }
+        })
+        .catch(function () {
+          // Offline or rate-limited: the badge stays the word, which is true.
+        });
+    }
+  }
 })();
